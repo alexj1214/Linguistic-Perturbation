@@ -1,0 +1,15 @@
+You are evaluating a job interview response for hireability.
+
+Read the following interview transcript excerpt and rate how hireable this candidate appears based solely on the content of what they say.
+
+TRANSCRIPT:
+{text}
+
+Rate the candidate's hireability on a scale from 1 to 5:
+1 = Very unlikely to hire
+2 = Unlikely to hire
+3 = Neutral / uncertain
+4 = Likely to hire
+5 = Very likely to hire
+
+Respond with a single integer (1, 2, 3, 4, or 5) and nothing else.

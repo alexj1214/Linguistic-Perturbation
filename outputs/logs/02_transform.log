@@ -1,0 +1,55 @@
+05:12:22  INFO     Dataset: chalearn  |  Samples: 5  |  Dialects: sae + ['indian', 'aave', 'singapore']
+05:12:22  INFO     [sae] Loading dialect... (5 samples to process)
+05:12:22  INFO     [sae] Complete — zero-rule samples: 0, errors: 0  →  outputs/transformed/chalearn_sae.jsonl
+05:12:22  INFO     [indian] Loading dialect... (5 samples to process)
+05:12:32  WARNING  [indian] sample='Ay7bZ7Sgx9Q.001.mp4': transform failed: Spacy and Stanza word mismatch
+05:12:40  INFO     [indian] Complete — zero-rule samples: 0, errors: 1  →  outputs/transformed/chalearn_indian.jsonl
+05:12:40  INFO     [aave] Loading dialect... (5 samples to process)
+05:12:48  WARNING  [aave] sample='Ay7bZ7Sgx9Q.001.mp4': transform failed: Spacy and Stanza word mismatch
+05:12:54  DEBUG    [aave] sample='GS7cBLgZKgk.002.mp4': 0 rules fired
+05:12:56  INFO     [aave] Complete — zero-rule samples: 1, errors: 1  →  outputs/transformed/chalearn_aave.jsonl
+05:12:56  INFO     [singapore] Loading dialect... (5 samples to process)
+05:13:12  WARNING  [singapore] sample='Ay7bZ7Sgx9Q.001.mp4': transform failed: Spacy and Stanza word mismatch
+05:13:18  INFO     [singapore] Complete — zero-rule samples: 0, errors: 1  →  outputs/transformed/chalearn_singapore.jsonl
+05:13:56  INFO     Dataset: persuade  |  Samples: 5  |  Dialects: sae + ['indian', 'aave', 'singapore']
+05:13:56  INFO     [sae] Loading dialect... (5 samples to process)
+05:13:56  INFO     [sae] Complete — zero-rule samples: 0, errors: 0  →  outputs/transformed/persuade_sae.jsonl
+05:13:56  INFO     [indian] Loading dialect... (5 samples to process)
+05:14:06  WARNING  [indian] sample='5165124_cleaned': transform failed: Spacy and Stanza sentence mismatch.
+05:14:11  WARNING  [indian] sample='5173608_cleaned': transform failed: Spacy and Stanza sentence mismatch.
+05:14:15  WARNING  [indian] sample='AAAOPP13416000116354': transform failed: Spacy and Stanza word mismatch
+05:14:20  WARNING  [indian] sample='AAAOPP13416000025359': transform failed: Spacy and Stanza sentence mismatch.
+05:14:23  WARNING  [indian] sample='2431006229': transform failed: Spacy and Stanza sentence mismatch.
+05:14:23  INFO     [indian] Complete — zero-rule samples: 0, errors: 5  →  outputs/transformed/persuade_indian.jsonl
+05:14:23  INFO     [aave] Loading dialect... (5 samples to process)
+05:14:34  WARNING  [aave] sample='5165124_cleaned': transform failed: Spacy and Stanza sentence mismatch.
+05:14:39  WARNING  [aave] sample='5173608_cleaned': transform failed: Spacy and Stanza sentence mismatch.
+05:14:43  WARNING  [aave] sample='AAAOPP13416000116354': transform failed: Spacy and Stanza word mismatch
+05:14:47  WARNING  [aave] sample='AAAOPP13416000025359': transform failed: Spacy and Stanza sentence mismatch.
+05:14:51  WARNING  [aave] sample='2431006229': transform failed: Spacy and Stanza sentence mismatch.
+05:14:51  INFO     [aave] Complete — zero-rule samples: 0, errors: 5  →  outputs/transformed/persuade_aave.jsonl
+05:14:51  INFO     [singapore] Loading dialect... (5 samples to process)
+05:15:02  WARNING  [singapore] sample='5165124_cleaned': transform failed: Spacy and Stanza sentence mismatch.
+05:15:08  WARNING  [singapore] sample='5173608_cleaned': transform failed: Spacy and Stanza sentence mismatch.
+05:15:13  WARNING  [singapore] sample='AAAOPP13416000116354': transform failed: Spacy and Stanza word mismatch
+05:15:19  WARNING  [singapore] sample='AAAOPP13416000025359': transform failed: Spacy and Stanza sentence mismatch.
+05:15:24  WARNING  [singapore] sample='2431006229': transform failed: Spacy and Stanza sentence mismatch.
+05:15:24  INFO     [singapore] Complete — zero-rule samples: 0, errors: 5  →  outputs/transformed/persuade_singapore.jsonl
+05:22:46  INFO     Dataset: chalearn  |  Samples: 5  |  Dialects: sae + ['indian', 'aave', 'singapore']
+05:22:46  INFO     [sae] Loading dialect... (5 samples to process)
+05:22:46  INFO     [sae] Complete — zero-rule samples: 0, errors: 0  →  outputs/transformed/chalearn_sae.jsonl
+05:22:46  INFO     [indian] Loading dialect... (5 samples to process)
+05:23:12  INFO     [indian] Complete — zero-rule samples: 0, errors: 0  →  outputs/transformed/chalearn_indian.jsonl
+05:23:12  INFO     [aave] Loading dialect... (5 samples to process)
+05:23:40  INFO     [aave] Complete — zero-rule samples: 0, errors: 0  →  outputs/transformed/chalearn_aave.jsonl
+05:23:40  INFO     [singapore] Loading dialect... (5 samples to process)
+05:24:06  INFO     [singapore] Complete — zero-rule samples: 0, errors: 0  →  outputs/transformed/chalearn_singapore.jsonl
+05:24:20  INFO     Dataset: persuade  |  Samples: 5  |  Dialects: sae + ['indian', 'aave', 'singapore']
+05:24:20  INFO     [sae] Loading dialect... (5 samples to process)
+05:24:20  INFO     [sae] Complete — zero-rule samples: 0, errors: 0  →  outputs/transformed/persuade_sae.jsonl
+05:24:20  INFO     [indian] Loading dialect... (5 samples to process)
+05:26:42  INFO     [indian] Complete — zero-rule samples: 0, errors: 0  →  outputs/transformed/persuade_indian.jsonl
+05:26:42  INFO     [aave] Loading dialect... (5 samples to process)
+05:29:27  INFO     [aave] Complete — zero-rule samples: 0, errors: 0  →  outputs/transformed/persuade_aave.jsonl
+05:29:27  INFO     [singapore] Loading dialect... (5 samples to process)
+05:31:55  INFO     [singapore] Complete — zero-rule samples: 0, errors: 0  →  outputs/transformed/persuade_singapore.jsonl

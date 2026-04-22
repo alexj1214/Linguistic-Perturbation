@@ -1,0 +1,16 @@
+You are an expert essay scorer evaluating student writing.
+
+Read the following student essay and assign a holistic score based on overall writing quality, including argumentation, evidence, organization, and language use.
+
+ESSAY:
+{text}
+
+Rate the essay on a scale from 1 to 6:
+1 = Inadequate
+2 = Weak
+3 = Developing
+4 = Proficient
+5 = Strong
+6 = Exemplary
+
+Respond with a single integer (1, 2, 3, 4, 5, or 6) and nothing else.
