@@ -1,0 +1,48 @@
+16:17:43  INFO     Loading scores for dataset: persuade
+16:17:43  INFO     Loaded 20 scored records  |  dialects: ['sae', 'aave', 'indian', 'singapore']  |  judges: ['claude-sonnet-4-5']
+16:17:43  INFO     
+      judge_model   dialect  mean_score  std_score  n
+claude-sonnet-4-5      aave         1.2   0.447214  5
+claude-sonnet-4-5    indian         1.2   0.447214  5
+claude-sonnet-4-5       sae         2.6   0.547723  5
+claude-sonnet-4-5 singapore         1.0   0.000000  5
+16:17:43  INFO     
+Score deltas vs SAE:
+  dialect  mean_delta  std_delta  n_pairs
+     aave        -1.4   0.547723        5
+   indian        -1.4   0.547723        5
+singapore        -1.6   0.547723        5
+16:17:43  INFO     
+Wilcoxon signed-rank tests:
+  dialect  wilcoxon_stat  p_value  significant_p05  n_pairs
+     aave            0.0   0.0625            False        5
+   indian            0.0   0.0625            False        5
+singapore            0.0   0.0625            False        5
+16:17:43  INFO     Summary saved to outputs/logs/persuade_analysis.csv
+16:17:43  INFO     Deltas saved to outputs/logs/persuade_deltas.csv
+16:17:43  INFO     Wilcoxon results saved to outputs/logs/persuade_wilcoxon.csv
+16:17:43  INFO     Plot saved to outputs/logs/persuade_analysis.png
+23:30:11  INFO     Loading scores for dataset: persuade
+23:30:11  INFO     Loaded 394 scored records  |  dialects: ['sae', 'aave', 'indian', 'singapore']  |  judges: ['claude-sonnet-4-5']
+23:30:11  INFO     
+      judge_model   dialect  mean_score  std_score   n
+claude-sonnet-4-5      aave    1.132653   0.340943  98
+claude-sonnet-4-5    indian    1.102041   0.304258  98
+claude-sonnet-4-5       sae    2.580000   0.622475 100
+claude-sonnet-4-5 singapore    1.051020   0.221171  98
+23:30:11  INFO     
+Score deltas vs SAE:
+  dialect  mean_delta  std_delta  n_pairs
+     aave   -1.459184   0.676077       98
+   indian   -1.489796   0.677243       98
+singapore   -1.540816   0.676077       98
+23:30:11  INFO     
+Wilcoxon signed-rank tests:
+  dialect  wilcoxon_stat      p_value  significant_p05  n_pairs
+     aave            0.0 1.099936e-17             True       98
+   indian            0.0 7.871651e-18             True       98
+singapore            0.0 5.622451e-18             True       98
+23:30:11  INFO     Summary saved to outputs/logs/persuade_analysis.csv
+23:30:11  INFO     Deltas saved to outputs/logs/persuade_deltas.csv
+23:30:11  INFO     Wilcoxon results saved to outputs/logs/persuade_wilcoxon.csv
+23:30:11  INFO     Plot saved to outputs/logs/persuade_analysis.png

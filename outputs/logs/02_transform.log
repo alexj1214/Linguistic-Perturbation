@@ -53,3 +53,36 @@
 05:29:27  INFO     [aave] Complete — zero-rule samples: 0, errors: 0  →  outputs/transformed/persuade_aave.jsonl
 05:29:27  INFO     [singapore] Loading dialect... (5 samples to process)
 05:31:55  INFO     [singapore] Complete — zero-rule samples: 0, errors: 0  →  outputs/transformed/persuade_singapore.jsonl
+16:23:18  INFO     Dataset: chalearn  |  Samples: 100  |  Dialects: sae + ['indian', 'aave', 'singapore']
+16:23:18  INFO     [sae] Loading dialect... (95 samples to process)
+16:23:18  INFO     [sae] 50/95 done
+16:23:18  INFO     [sae] Complete — zero-rule samples: 0, errors: 0  →  outputs/transformed/chalearn_sae.jsonl
+16:23:18  INFO     [indian] Loading dialect... (95 samples to process)
+16:28:55  INFO     [indian] 50/95 done
+16:35:05  INFO     [indian] Complete — zero-rule samples: 0, errors: 0  →  outputs/transformed/chalearn_indian.jsonl
+16:35:05  INFO     [aave] Loading dialect... (95 samples to process)
+16:43:14  INFO     [aave] 50/95 done
+16:50:10  DEBUG    [aave] sample='dRP8ZaAryro.004.mp4': 0 rules fired
+16:50:49  INFO     [aave] Complete — zero-rule samples: 1, errors: 0  →  outputs/transformed/chalearn_aave.jsonl
+16:50:49  INFO     [singapore] Loading dialect... (95 samples to process)
+16:57:16  INFO     [singapore] 50/95 done
+17:02:01  INFO     [singapore] Complete — zero-rule samples: 0, errors: 0  →  outputs/transformed/chalearn_singapore.jsonl
+17:19:13  INFO     Dataset: persuade  |  Samples: 100  |  Dialects: sae + ['indian', 'aave', 'singapore']
+17:19:13  INFO     [sae] Loading dialect... (95 samples to process)
+17:19:13  INFO     [sae] 50/95 done
+17:19:13  INFO     [sae] Complete — zero-rule samples: 0, errors: 0  →  outputs/transformed/persuade_sae.jsonl
+17:19:13  INFO     [indian] Loading dialect... (95 samples to process)
+17:45:42  INFO     [indian] 50/95 done
+17:52:04  WARNING  [indian] sample='AAAXMP138200001490032810_OR': transform failed: list index out of range
+18:04:21  WARNING  [indian] sample='AAAXMP138200001302392810_OR': transform failed: list index out of range
+18:05:03  INFO     [indian] Complete — zero-rule samples: 0, errors: 2  →  outputs/transformed/persuade_indian.jsonl
+18:05:03  INFO     [aave] Loading dialect... (95 samples to process)
+20:19:42  INFO     [aave] 50/95 done
+20:25:03  WARNING  [aave] sample='AAAXMP138200001490032810_OR': transform failed: list index out of range
+20:36:05  WARNING  [aave] sample='AAAXMP138200001302392810_OR': transform failed: list index out of range
+20:36:40  INFO     [aave] Complete — zero-rule samples: 0, errors: 2  →  outputs/transformed/persuade_aave.jsonl
+20:36:40  INFO     [singapore] Loading dialect... (95 samples to process)
+21:00:19  INFO     [singapore] 50/95 done
+21:07:10  WARNING  [singapore] sample='AAAXMP138200001490032810_OR': transform failed: list index out of range
+21:20:34  WARNING  [singapore] sample='AAAXMP138200001302392810_OR': transform failed: list index out of range
+21:21:09  INFO     [singapore] Complete — zero-rule samples: 0, errors: 2  →  outputs/transformed/persuade_singapore.jsonl

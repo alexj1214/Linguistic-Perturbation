@@ -1,0 +1,48 @@
+16:17:41  INFO     Loading scores for dataset: chalearn
+16:17:41  INFO     Loaded 20 scored records  |  dialects: ['singapore', 'aave', 'sae', 'indian']  |  judges: ['claude-sonnet-4-5']
+16:17:41  INFO     
+      judge_model   dialect  mean_score  std_score  n
+claude-sonnet-4-5      aave         1.6   0.894427  5
+claude-sonnet-4-5    indian         1.6   0.894427  5
+claude-sonnet-4-5       sae         2.2   0.836660  5
+claude-sonnet-4-5 singapore         1.6   0.894427  5
+16:17:41  INFO     
+Score deltas vs SAE:
+  dialect  mean_delta  std_delta  n_pairs
+     aave        -0.6   0.547723        5
+   indian        -0.6   0.547723        5
+singapore        -0.6   0.547723        5
+16:17:41  INFO     
+Wilcoxon signed-rank tests:
+  dialect  wilcoxon_stat  p_value  significant_p05  n_pairs
+     aave            0.0     0.25            False        5
+   indian            0.0     0.25            False        5
+singapore            0.0     0.25            False        5
+16:17:41  INFO     Summary saved to outputs/logs/chalearn_analysis.csv
+16:17:41  INFO     Deltas saved to outputs/logs/chalearn_deltas.csv
+16:17:41  INFO     Wilcoxon results saved to outputs/logs/chalearn_wilcoxon.csv
+16:17:42  INFO     Plot saved to outputs/logs/chalearn_analysis.png
+23:30:00  INFO     Loading scores for dataset: chalearn
+23:30:00  INFO     Loaded 400 scored records  |  dialects: ['singapore', 'aave', 'sae', 'indian']  |  judges: ['claude-sonnet-4-5']
+23:30:00  INFO     
+      judge_model   dialect  mean_score  std_score   n
+claude-sonnet-4-5      aave        1.40   0.512471 100
+claude-sonnet-4-5    indian        1.33   0.493493 100
+claude-sonnet-4-5       sae        1.83   0.766139 100
+claude-sonnet-4-5 singapore        1.18   0.411452 100
+23:30:00  INFO     
+Score deltas vs SAE:
+  dialect  mean_delta  std_delta  n_pairs
+     aave       -0.43   0.700000      100
+   indian       -0.50   0.643538      100
+singapore       -0.65   0.715979      100
+23:30:00  INFO     
+Wilcoxon signed-rank tests:
+  dialect  wilcoxon_stat      p_value  significant_p05  n_pairs
+     aave           78.0 1.177723e-07             True      100
+   indian           70.5 8.966804e-10             True      100
+singapore           49.0 1.706083e-11             True      100
+23:30:00  INFO     Summary saved to outputs/logs/chalearn_analysis.csv
+23:30:00  INFO     Deltas saved to outputs/logs/chalearn_deltas.csv
+23:30:00  INFO     Wilcoxon results saved to outputs/logs/chalearn_wilcoxon.csv
+23:30:01  INFO     Plot saved to outputs/logs/chalearn_analysis.png

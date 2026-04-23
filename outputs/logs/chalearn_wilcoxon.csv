@@ -1,0 +1,4 @@
+dialect,wilcoxon_stat,p_value,significant_p05,n_pairs
+aave,78.0,1.1777230971239952e-07,True,100
+indian,70.5,8.966803964279087e-10,True,100
+singapore,49.0,1.7060827845325665e-11,True,100

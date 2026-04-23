@@ -1,0 +1,5 @@
+judge_model,dialect,mean_score,std_score,n
+claude-sonnet-4-5,aave,1.4,0.5124707431905383,100
+claude-sonnet-4-5,indian,1.33,0.49349301265099327,100
+claude-sonnet-4-5,sae,1.83,0.7661394761854379,100
+claude-sonnet-4-5,singapore,1.18,0.41145221993924064,100
