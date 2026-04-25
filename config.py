@@ -16,7 +16,13 @@ DIALECT_CLASS_MAP = {
 }
 
 # ── Judge models ──────────────────────────────────────────────
-JUDGE_MODELS = ["claude-sonnet-4-5"]
+# claude-sonnet-4-6 is reserved for grammar perturbation expansion
+JUDGE_MODELS = [
+    "claude-opus-4-7",           # Anthropic: strongest judge
+    "claude-sonnet-4-6",         # Anthropic: mid-tier judge
+    "claude-haiku-4-5-20251001", # Anthropic: lightweight judge
+    "gpt-4o",                    # OpenAI: cross-family judge (requires OPENAI_API_KEY)
+]
 
 # ── Sample sizes ──────────────────────────────────────────────
 N_PILOT_SAMPLES = 5

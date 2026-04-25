@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LLM Dialect Bias Pipeline</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: #0f1117;
+    color: #e2e8f0;
+    min-height: 100vh;
+    padding: 40px 24px;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #f1f5f9;
+    letter-spacing: 0.02em;
+    margin-bottom: 6px;
+  }
+  .subtitle {
+    text-align: center;
+    font-size: 0.82rem;
+    color: #94a3b8;
+    margin-bottom: 40px;
+  }
+
+  /* ── layout ── */
+  .pipeline {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: nowrap;
+    max-width: 1180px;
+    margin: 0 auto 48px;
+  }
+
+  /* ── stage card ── */
+  .stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 200px;
+    flex-shrink: 0;
+  }
+
+  .card {
+    width: 100%;
+    border-radius: 14px;
+    padding: 18px 14px 16px;
+    text-align: center;
+    position: relative;
+    border: 1px solid transparent;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .card:hover { transform: translateY(-3px); }
+
+  .card .step-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #fff;
+  }
+  .card .icon { font-size: 1.8rem; margin-bottom: 8px; display: block; }
+  .card .title { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 5px; }
+  .card .script { font-size: 0.68rem; font-family: monospace; background: rgba(255,255,255,0.08); border-radius: 4px; padding: 2px 6px; margin-bottom: 8px; display: inline-block; color: #cbd5e1; }
+  .card .desc { font-size: 0.72rem; color: #94a3b8; line-height: 1.5; }
+
+  /* stage colours */
+  .s1 .card { background: linear-gradient(135deg,#1e293b,#1a2744); border-color: #3b5bdb44; box-shadow: 0 4px 20px #3b5bdb22; }
+  .s1 .card .step-badge { background: #3b5bdb; }
+  .s1 .card .title { color: #748ffc; }
+
+  .s2 .card { background: linear-gradient(135deg,#1e293b,#1b2b1b); border-color: #2f9e4444; box-shadow: 0 4px 20px #2f9e4422; }
+  .s2 .card .step-badge { background: #2f9e44; }
+  .s2 .card .title { color: #51cf66; }
+
+  .s3 .card { background: linear-gradient(135deg,#1e293b,#2a1e2a); border-color: #ae3ec944; box-shadow: 0 4px 20px #ae3ec922; }
+  .s3 .card .step-badge { background: #ae3ec9; }
+  .s3 .card .title { color: #da77f2; }
+
+  .s4 .card { background: linear-gradient(135deg,#1e293b,#2a1e1b); border-color: #e8590c44; box-shadow: 0 4px 20px #e8590c22; }
+  .s4 .card .step-badge { background: #e8590c; }
+  .s4 .card .title { color: #ff922b; }
+
+  /* ── arrow connector ── */
+  .arrow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    flex-shrink: 0;
+    margin-top: 56px; /* align with card body */
+    gap: 3px;
+    color: #475569;
+    font-size: 0.6rem;
+    letter-spacing: 0.04em;
+  }
+  .arrow svg { opacity: .6; }
+
+  /* ── tag pills ── */
+  .tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; margin-top: 10px; }
+  .tag {
+    font-size: 0.62rem;
+    padding: 2px 7px;
+    border-radius: 20px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+  }
+  .tag-blue  { background: #1e3a8a; color: #93c5fd; }
+  .tag-green { background: #14532d; color: #86efac; }
+  .tag-purple{ background: #4a044e; color: #e879f9; }
+  .tag-orange{ background: #7c2d12; color: #fdba74; }
+
+  /* ── output row ── */
+  .outputs-section { max-width: 1180px; margin: 0 auto; }
+  .outputs-section h2 { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #64748b; margin-bottom: 16px; text-align: center; }
+  .outputs-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  .out-card {
+    border-radius: 10px;
+    padding: 12px 14px;
+    border: 1px solid;
+    font-size: 0.7rem;
+  }
+  .out-card .out-label { font-weight: 700; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+  .out-card code { font-family: monospace; font-size: 0.68rem; line-height: 1.6; display: block; color: #94a3b8; }
+
+  .oc1 { background:#1e293b; border-color:#3b5bdb33; }
+  .oc1 .out-label { color:#748ffc; }
+  .oc2 { background:#1e293b; border-color:#2f9e4433; }
+  .oc2 .out-label { color:#51cf66; }
+  .oc3 { background:#1e293b; border-color:#ae3ec933; }
+  .oc3 .out-label { color:#da77f2; }
+  .oc4 { background:#1e293b; border-color:#e8590c33; }
+  .oc4 .out-label { color:#ff922b; }
+
+  /* ── dialect legend ── */
+  .legend-section { max-width: 1180px; margin: 32px auto 0; }
+  .legend-section h2 { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #64748b; margin-bottom: 14px; text-align: center; }
+  .legend-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .legend-card {
+    border-radius: 10px;
+    padding: 12px 14px;
+    background: #1e293b;
+    border: 1px solid #334155;
+    font-size: 0.72rem;
+  }
+  .legend-card .dialect-name { font-weight: 700; font-size: 0.75rem; margin-bottom: 3px; }
+  .legend-card .dialect-sub  { color: #64748b; font-size: 0.67rem; }
+  .sae-d   { border-color: #475569 !important; }
+  .sae-d .dialect-name { color: #94a3b8; }
+  .aave-d  { border-color: #2f9e4444 !important; }
+  .aave-d .dialect-name { color: #51cf66; }
+  .indian-d { border-color: #3b5bdb44 !important; }
+  .indian-d .dialect-name { color: #748ffc; }
+  .sing-d  { border-color: #ae3ec944 !important; }
+  .sing-d .dialect-name { color: #da77f2; }
+
+  /* ── judge legend ── */
+  .judge-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 32px; }
+  .judge-card {
+    border-radius: 10px;
+    padding: 12px 14px;
+    background: #1e293b;
+    border: 1px solid #334155;
+    font-size: 0.72rem;
+  }
+  .judge-card .judge-name { font-weight: 700; font-size: 0.73rem; margin-bottom: 3px; font-family: monospace; }
+  .judge-card .judge-sub  { color: #64748b; font-size: 0.67rem; }
+  .jc1 { border-color: #e8590c44 !important; } .jc1 .judge-name { color: #ff922b; }
+  .jc2 { border-color: #ae3ec944 !important; } .jc2 .judge-name { color: #da77f2; }
+  .jc3 { border-color: #3b5bdb44 !important; } .jc3 .judge-name { color: #748ffc; }
+  .jc4 { border-color: #2f9e4444 !important; } .jc4 .judge-name { color: #51cf66; }
+</style>
+</head>
+<body>
+
+<h1>LLM Dialect Bias in Automated Grading — Research Pipeline</h1>
+<p class="subtitle">Measuring whether LLM judges score texts differently based on English dialect variety</p>
+
+<!-- ── MAIN PIPELINE ── -->
+<div class="pipeline">
+
+  <!-- Stage 1 -->
+  <div class="stage s1">
+    <div class="card">
+      <div class="step-badge">1</div>
+      <span class="icon">🔍</span>
+      <div class="title">Inspect Data</div>
+      <div class="script">01_inspect_data.py</div>
+      <div class="desc">Audit raw datasets, compute word-count statistics, flag missing values</div>
+      <div class="tags">
+        <span class="tag tag-blue">ChaLearn</span>
+        <span class="tag tag-blue">PERSUADE</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Arrow -->
+  <div class="arrow">
+    <svg width="32" height="16" viewBox="0 0 32 16"><path d="M0 8h28M22 2l8 6-8 6" stroke="#475569" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+
+  <!-- Stage 2 -->
+  <div class="stage s2">
+    <div class="card">
+      <div class="step-badge">2</div>
+      <span class="icon">🔄</span>
+      <div class="title">Dialect Transform</div>
+      <div class="script">02_transform.py</div>
+      <div class="desc">Convert SAE texts into AAVE, Indian &amp; Singapore English via Multi-VALUE (sentence-by-sentence)</div>
+      <div class="tags">
+        <span class="tag tag-green">AAVE</span>
+        <span class="tag tag-green">Indian</span>
+        <span class="tag tag-green">Singapore</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Arrow -->
+  <div class="arrow">
+    <svg width="32" height="16" viewBox="0 0 32 16"><path d="M0 8h28M22 2l8 6-8 6" stroke="#475569" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+
+  <!-- Stage 3 -->
+  <div class="stage s3">
+    <div class="card">
+      <div class="step-badge">3</div>
+      <span class="icon">🤖</span>
+      <div class="title">LLM Scoring</div>
+      <div class="script">03_score.py</div>
+      <div class="desc">4 LLM judges score each dialect variant; results cached by (id, dialect, judge, prompt_hash)</div>
+      <div class="tags">
+        <span class="tag tag-purple">Claude</span>
+        <span class="tag tag-purple">GPT-4o</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Arrow -->
+  <div class="arrow">
+    <svg width="32" height="16" viewBox="0 0 32 16"><path d="M0 8h28M22 2l8 6-8 6" stroke="#475569" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+
+  <!-- Stage 4 -->
+  <div class="stage s4">
+    <div class="card">
+      <div class="step-badge">4</div>
+      <span class="icon">📊</span>
+      <div class="title">Analyze</div>
+      <div class="script">04_analyze.py</div>
+      <div class="desc">Score deltas vs SAE, Wilcoxon tests, Spearman ρ, weighted κ, inter-judge heatmaps</div>
+      <div class="tags">
+        <span class="tag tag-orange">Wilcoxon</span>
+        <span class="tag tag-orange">Spearman</span>
+        <span class="tag tag-orange">Cohen's κ</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── OUTPUTS ── -->
+<div class="outputs-section">
+  <h2>Stage Outputs</h2>
+  <div class="outputs-grid">
+    <div class="out-card oc1">
+      <div class="out-label">Step 1 — Inspection</div>
+      <code>outputs/logs/data_summary.txt</code>
+    </div>
+    <div class="out-card oc2">
+      <div class="out-label">Step 2 — Transformed Texts</div>
+      <code>outputs/transformed/<br>{dataset}_{dialect}.jsonl</code>
+    </div>
+    <div class="out-card oc3">
+      <div class="out-label">Step 3 — Judge Scores</div>
+      <code>outputs/scores/<br>{dataset}_{dialect}_{judge}.jsonl</code>
+    </div>
+    <div class="out-card oc4">
+      <div class="out-label">Step 4 — Analysis</div>
+      <code>{dataset}_analysis.csv<br>{dataset}_deltas.csv<br>{dataset}_wilcoxon.csv<br>{dataset}_consistency.png</code>
+    </div>
+  </div>
+</div>
+
+<!-- ── DIALECT LEGEND ── -->
+<div class="legend-section">
+  <h2>Dialect Conditions</h2>
+  <div class="legend-grid">
+    <div class="legend-card sae-d">
+      <div class="dialect-name">SAE — Baseline</div>
+      <div class="dialect-sub">Standard American English (untransformed)</div>
+    </div>
+    <div class="legend-card aave-d">
+      <div class="dialect-name">AAVE</div>
+      <div class="dialect-sub">African American Vernacular English</div>
+    </div>
+    <div class="legend-card indian-d">
+      <div class="dialect-name">Indian English</div>
+      <div class="dialect-sub">South Asian English variety</div>
+    </div>
+    <div class="legend-card sing-d">
+      <div class="dialect-name">Singapore English</div>
+      <div class="dialect-sub">Colloquial Singaporean English (Singlish)</div>
+    </div>
+  </div>
+
+  <h2 style="margin-top:28px;">LLM Judges</h2>
+  <div class="judge-grid">
+    <div class="judge-card jc1">
+      <div class="judge-name">claude-opus-4-7</div>
+      <div class="judge-sub">Anthropic · strongest judge</div>
+    </div>
+    <div class="judge-card jc2">
+      <div class="judge-name">claude-sonnet-4-6</div>
+      <div class="judge-sub">Anthropic · mid-tier judge</div>
+    </div>
+    <div class="judge-card jc3">
+      <div class="judge-name">claude-haiku-4-5</div>
+      <div class="judge-sub">Anthropic · lightweight judge</div>
+    </div>
+    <div class="judge-card jc4">
+      <div class="judge-name">gpt-4o</div>
+      <div class="judge-sub">OpenAI · cross-provider comparison</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

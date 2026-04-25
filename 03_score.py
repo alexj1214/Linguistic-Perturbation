@@ -1,9 +1,12 @@
 """
-03_score.py — Score dialect-transformed texts with an LLM judge.
+03_score.py — Score dialect-transformed texts with LLM judges.
 
 Usage:
-    python 03_score.py --dataset chalearn --dialect all --judge claude-sonnet-4-5
-    python 03_score.py --dataset persuade --dialect indian --judge claude-sonnet-4-5
+    python 03_score.py --dataset chalearn --dialect all --judge all
+    python 03_score.py --dataset persuade --dialect indian --judge claude-opus-4-7
+    python 03_score.py --dataset persuade --dialect all --judge gpt-4o,claude-haiku-4-5-20251001
+
+    --judge accepts: a model name, comma-separated names, or 'all' (uses config.JUDGE_MODELS)
 
 Reads:  outputs/transformed/{dataset}_{dialect}.jsonl
 Writes: outputs/scores/{dataset}_{dialect}_{judge}.jsonl
@@ -13,7 +16,8 @@ Each output line:
      "transformed_text", "raw_response", "parsed_score", "cached"}
 
 IMPORTANT: Run with /opt/anaconda3/envs/dialect_bias/bin/python
-           Requires ANTHROPIC_API_KEY in environment.
+           Anthropic models require ANTHROPIC_API_KEY.
+           OpenAI models require OPENAI_API_KEY.
 """
 
 import argparse
@@ -26,17 +30,56 @@ from pathlib import Path
 
 import anthropic
 
+try:
+    import openai as _openai_module
+    _OPENAI_AVAILABLE = True
+except ImportError:
+    _OPENAI_AVAILABLE = False
+
 import config
 from utils import ensure_dirs, get_logger, safe_api_call
 
 ensure_dirs()
 log = get_logger("score", "03_score.log")
 
-# Score ranges per dataset
 SCORE_RANGE = {
     "chalearn": (1, 5),
     "persuade": (1, 6),
 }
+
+# Rough cost per million tokens (input, output) in USD
+_MODEL_COSTS = {
+    "claude-opus-4-7":           (15.0, 75.0),
+    "claude-haiku-4-5-20251001": (0.80,  4.0),
+    "claude-sonnet-4-6":         (3.0,  15.0),
+    "gpt-4o":                    (2.50, 10.0),
+    "gpt-4o-mini":               (0.15,  0.60),
+}
+
+
+# ── Provider helpers ───────────────────────────────────────────
+
+def _is_openai_model(model: str) -> bool:
+    return model.startswith(("gpt-", "o1-", "o3-", "o4-"))
+
+
+def _make_anthropic_client() -> anthropic.Anthropic:
+    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    if not api_key:
+        log.error("ANTHROPIC_API_KEY not set in environment.")
+        sys.exit(1)
+    return anthropic.Anthropic(api_key=api_key)
+
+
+def _make_openai_client():
+    if not _OPENAI_AVAILABLE:
+        log.error("openai package not installed. Run: pip install openai")
+        sys.exit(1)
+    api_key = os.environ.get("OPENAI_API_KEY")
+    if not api_key:
+        log.error("OPENAI_API_KEY not set in environment.")
+        sys.exit(1)
+    return _openai_module.OpenAI(api_key=api_key)
 
 
 # ── Prompt loading ─────────────────────────────────────────────
@@ -59,9 +102,7 @@ def prompt_hash(prompt: str) -> str:
 # ── Score parsing ──────────────────────────────────────────────
 
 def parse_score(response_text: str, dataset: str) -> int | None:
-    """Extract integer score from model response. Returns None if unparseable."""
     lo, hi = SCORE_RANGE[dataset]
-    # Try to find a standalone integer in range
     matches = re.findall(r"\b([1-6])\b", response_text.strip())
     for m in matches:
         val = int(m)
@@ -70,24 +111,33 @@ def parse_score(response_text: str, dataset: str) -> int | None:
     return None
 
 
-# ── API call ───────────────────────────────────────────────────
+# ── API calls ──────────────────────────────────────────────────
 
-def call_judge(client: anthropic.Anthropic, model: str, prompt: str) -> str:
-    def _call():
-        msg = client.messages.create(
-            model=model,
-            max_tokens=16,
-            temperature=0,
-            messages=[{"role": "user", "content": prompt}],
-        )
-        return msg.content[0].text.strip()
+def call_judge(client, model: str, prompt: str) -> str:
+    if _is_openai_model(model):
+        def _call():
+            resp = client.chat.completions.create(
+                model=model,
+                max_tokens=16,
+                temperature=0,
+                messages=[{"role": "user", "content": prompt}],
+            )
+            return resp.choices[0].message.content.strip()
+    else:
+        def _call():
+            msg = client.messages.create(
+                model=model,
+                max_tokens=16,
+                temperature=0,
+                messages=[{"role": "user", "content": prompt}],
+            )
+            return msg.content[0].text.strip()
     return safe_api_call(_call)
 
 
 # ── Cache helpers ──────────────────────────────────────────────
 
 def load_cache(out_path: Path) -> set[tuple]:
-    """Return set of (sample_id, dialect, judge_model, prompt_hash) already done."""
     done = set()
     if out_path.exists():
         with open(out_path) as f:
@@ -103,11 +153,7 @@ def load_cache(out_path: Path) -> set[tuple]:
 # ── Main ───────────────────────────────────────────────────────
 
 def run(dataset: str, dialect_keys: list[str], judge_model: str):
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
-    if not api_key:
-        log.error("ANTHROPIC_API_KEY not set in environment.")
-        sys.exit(1)
-    client = anthropic.Anthropic(api_key=api_key)
+    client = _make_openai_client() if _is_openai_model(judge_model) else _make_anthropic_client()
 
     prompt_template = load_prompt_template(dataset)
     log.info(f"Dataset: {dataset}  |  Dialects: {dialect_keys}  |  Judge: {judge_model}")
@@ -152,17 +198,17 @@ def run(dataset: str, dialect_keys: list[str], judge_model: str):
                 parsed_score = parse_score(raw_response, dataset)
                 if parsed_score is None:
                     total_unparseable += 1
-                    log.warning(f"[{dialect_key}] sample={sid!r}: unparseable response: {raw_response!r}")
+                    log.warning(f"[{dialect_key}] sample={sid!r}: unparseable: {raw_response!r}")
 
                 out_record = {
-                    "sample_id":       sid,
-                    "dialect":         dialect_key,
-                    "judge_model":     judge_model,
-                    "prompt_hash":     p_hash,
+                    "sample_id":        sid,
+                    "dialect":          dialect_key,
+                    "judge_model":      judge_model,
+                    "prompt_hash":      p_hash,
                     "transformed_text": text,
-                    "raw_response":    raw_response,
-                    "parsed_score":    parsed_score,
-                    "cached":          False,
+                    "raw_response":     raw_response,
+                    "parsed_score":     parsed_score,
+                    "cached":           False,
                 }
                 fout.write(json.dumps(out_record, ensure_ascii=False) + "\n")
                 cache.add(cache_key)
@@ -176,26 +222,26 @@ def run(dataset: str, dialect_keys: list[str], judge_model: str):
     log.info(f"Run complete — new scores: {total_scored}, "
              f"cached: {total_cached}, unparseable: {total_unparseable}")
 
-    # Rough cost estimate (claude-sonnet-4-5: ~$3/M input, ~$15/M output)
-    # Estimate: avg ~500 tokens input, 2 tokens output
-    est_input_tokens  = total_scored * 500
-    est_output_tokens = total_scored * 2
-    est_cost = (est_input_tokens / 1_000_000 * 3.0) + (est_output_tokens / 1_000_000 * 15.0)
-    log.info(f"Estimated API cost for this run: ~${est_cost:.4f} "
-             f"({est_input_tokens:,} input tokens, {est_output_tokens:,} output tokens)")
+    cost_in, cost_out = _MODEL_COSTS.get(judge_model, (3.0, 15.0))
+    est_cost = (total_scored * 500 / 1_000_000 * cost_in) + (total_scored * 2 / 1_000_000 * cost_out)
+    log.info(f"Estimated API cost for this run: ~${est_cost:.4f}")
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--dataset",  required=True, choices=["chalearn", "persuade"])
-    parser.add_argument("--dialect",  default="all",
-                        help="Dialect key or 'all' (default: all)")
-    parser.add_argument("--judge",    default=config.JUDGE_MODELS[0])
+    parser.add_argument("--dataset", required=True, choices=["chalearn", "persuade"])
+    parser.add_argument("--dialect", default="all",
+                        help="Dialect key, 'all', or comma-separated list")
+    parser.add_argument("--judge", default="all",
+                        help="Model name, 'all' (config.JUDGE_MODELS), or comma-separated list")
     args = parser.parse_args()
 
-    if args.dialect == "all":
-        dialect_keys = ["sae"] + config.DIALECTS
-    else:
-        dialect_keys = [args.dialect]
+    dialect_keys = (["sae"] + config.DIALECTS) if args.dialect == "all" else args.dialect.split(",")
 
-    run(args.dataset, dialect_keys, args.judge)
+    if args.judge == "all":
+        judges = config.JUDGE_MODELS
+    else:
+        judges = args.judge.split(",")
+
+    for judge in judges:
+        run(args.dataset, dialect_keys, judge.strip())

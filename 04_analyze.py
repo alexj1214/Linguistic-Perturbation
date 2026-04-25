@@ -7,7 +7,11 @@ Usage:
 
 Reads:  outputs/scores/{dataset}_*_*.jsonl
 Writes: outputs/logs/{dataset}_analysis.csv
+        outputs/logs/{dataset}_deltas.csv
+        outputs/logs/{dataset}_wilcoxon.csv
+        outputs/logs/{dataset}_consistency.csv   (inter-rater reliability)
         outputs/logs/{dataset}_analysis.png
+        outputs/logs/{dataset}_consistency.png   (judge correlation heatmap)
 """
 
 import argparse
@@ -24,6 +28,68 @@ from scipy import stats
 
 import config
 from utils import ensure_dirs, get_logger
+
+
+# ── Inter-rater consistency helpers ───────────────────────────
+
+def _weighted_kappa_linear(a: np.ndarray, b: np.ndarray, lo: int, hi: int) -> float:
+    """Cohen's kappa with linear weights for two arrays of ordinal scores."""
+    n = len(a)
+    if n == 0:
+        return float("nan")
+    cats = list(range(lo, hi + 1))
+    k = len(cats)
+    idx = {v: i for i, v in enumerate(cats)}
+    weights = np.array([[abs(i - j) / (k - 1) for j in range(k)] for i in range(k)])
+
+    obs = np.zeros((k, k))
+    for ai, bi in zip(a, b):
+        if ai in idx and bi in idx:
+            obs[idx[ai], idx[bi]] += 1
+    obs /= obs.sum()
+
+    row_m = obs.sum(axis=1)
+    col_m = obs.sum(axis=0)
+    exp = np.outer(row_m, col_m)
+
+    po = 1 - np.sum(weights * obs)
+    pe = 1 - np.sum(weights * exp)
+    return po / pe if pe != 0 else float("nan")
+
+
+def compute_consistency(df: pd.DataFrame, dataset: str) -> pd.DataFrame:
+    """
+    Per-dialect pairwise inter-rater consistency between judges.
+    Returns a DataFrame with one row per (dialect, judge_a, judge_b).
+    Metrics: spearman_r, weighted_kappa, pct_exact_agreement, mean_abs_diff.
+    """
+    lo, hi = (1, 5) if dataset == "chalearn" else (1, 6)
+    rows = []
+    for dialect, grp in df.groupby("dialect"):
+        pivot = grp.pivot_table(
+            index="sample_id", columns="judge_model", values="parsed_score"
+        ).dropna()
+        judges = pivot.columns.tolist()
+        if len(judges) < 2:
+            continue
+        for i, ja in enumerate(judges):
+            for jb in judges[i + 1:]:
+                a, b = pivot[ja].values, pivot[jb].values
+                rho, _ = stats.spearmanr(a, b)
+                kappa  = _weighted_kappa_linear(a.astype(int), b.astype(int), lo, hi)
+                pct_agree = np.mean(a == b)
+                mad = np.mean(np.abs(a - b))
+                rows.append({
+                    "dialect":            dialect,
+                    "judge_a":            ja,
+                    "judge_b":            jb,
+                    "n_pairs":            len(a),
+                    "spearman_r":         round(rho, 4),
+                    "weighted_kappa":     round(kappa, 4),
+                    "pct_exact_agree":    round(pct_agree, 4),
+                    "mean_abs_diff":      round(mad, 4),
+                })
+    return pd.DataFrame(rows)
 
 ensure_dirs()
 
@@ -131,6 +197,51 @@ def run(dataset: str):
         tests_path = config.LOGS_DIR / f"{dataset}_wilcoxon.csv"
         tests_df.to_csv(tests_path, index=False)
         log.info(f"Wilcoxon results saved to {tests_path}")
+
+    # ── Inter-rater consistency ────────────────────────────────
+    judges_present = df["judge_model"].unique().tolist()
+    if len(judges_present) >= 2:
+        consistency_df = compute_consistency(df, dataset)
+        if not consistency_df.empty:
+            cons_path = config.LOGS_DIR / f"{dataset}_consistency.csv"
+            consistency_df.to_csv(cons_path, index=False)
+            log.info(f"\nInter-rater consistency:\n{consistency_df.to_string(index=False)}")
+            log.info(f"Consistency saved to {cons_path}")
+
+            # Heatmap: mean Spearman r across dialects per judge pair
+            mean_rho = (
+                consistency_df.groupby(["judge_a", "judge_b"])["spearman_r"]
+                .mean()
+                .reset_index()
+            )
+            all_judges = sorted(set(mean_rho["judge_a"]) | set(mean_rho["judge_b"]))
+            mat = pd.DataFrame(np.nan, index=all_judges, columns=all_judges)
+            for _, row in mean_rho.iterrows():
+                mat.loc[row["judge_a"], row["judge_b"]] = row["spearman_r"]
+                mat.loc[row["judge_b"], row["judge_a"]] = row["spearman_r"]
+            np.fill_diagonal(mat.values, 1.0)
+
+            fig_c, ax_c = plt.subplots(figsize=(max(4, len(all_judges) * 1.8),
+                                                max(3, len(all_judges) * 1.5)))
+            im = ax_c.imshow(mat.values.astype(float), vmin=-1, vmax=1, cmap="RdYlGn")
+            ax_c.set_xticks(range(len(all_judges)))
+            ax_c.set_yticks(range(len(all_judges)))
+            ax_c.set_xticklabels(all_judges, rotation=30, ha="right", fontsize=8)
+            ax_c.set_yticklabels(all_judges, fontsize=8)
+            for i in range(len(all_judges)):
+                for j in range(len(all_judges)):
+                    val = mat.values[i, j]
+                    if not np.isnan(val):
+                        ax_c.text(j, i, f"{val:.2f}", ha="center", va="center", fontsize=9)
+            plt.colorbar(im, ax=ax_c, label="Spearman ρ")
+            ax_c.set_title(f"{dataset.upper()} — Mean inter-judge Spearman ρ (across dialects)")
+            plt.tight_layout()
+            heatmap_path = config.LOGS_DIR / f"{dataset}_consistency.png"
+            plt.savefig(heatmap_path, dpi=150)
+            plt.close()
+            log.info(f"Consistency heatmap saved to {heatmap_path}")
+    else:
+        log.info("Only one judge found — skipping inter-rater consistency analysis.")
 
     # ── Plot: score distributions per dialect ──────────────────
     dialects_present = sorted(df["dialect"].unique())
