@@ -1,5 +1,5 @@
 """
-config.py — Central configuration for the dialect bias pipeline.
+config.py — Central configuration for the LLM dialect bias grading pipeline.
 """
 
 from pathlib import Path
