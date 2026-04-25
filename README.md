@@ -1,6 +1,6 @@
 # LLM Dialect Bias in Automated Grading
 
-A research pipeline that measures whether Large Language Models grade texts differently based on English dialect, while holding semantic content constant.
+A research pipeline that investigates whether Large Language Models grade texts differently based on English dialect, while holding semantic content constant.
 
 ## Research Question
 
