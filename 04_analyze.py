@@ -1,5 +1,5 @@
 """
-04_analyze.py — Compute score deltas, run stats, generate plots.
+04_analyze.py — Compute score deltas, run statistical tests, and generate plots.
 
 Usage:
     python 04_analyze.py --dataset chalearn
