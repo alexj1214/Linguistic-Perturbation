@@ -1,5 +1,5 @@
 """
-03_score.py — Score dialect-transformed texts with LLM judges.
+03_score.py — Score dialect-transformed texts using LLM judges (Anthropic + OpenAI).
 
 Usage:
     python 03_score.py --dataset chalearn --dialect all --judge all
