@@ -1,0 +1,13 @@
+judge_model,dialect,n_all,mean_delta_all,n_sae_ge_3,mean_delta_sae_ge_3
+claude-haiku-4-5-20251001,aave,98,-0.99,75,-1.253
+claude-opus-4-7,aave,98,-1.214,82,-1.378
+claude-sonnet-4-6,aave,98,-1.347,59,-1.695
+gpt-4o,aave,98,-1.48,59,-1.831
+claude-haiku-4-5-20251001,indian,98,-1.02,75,-1.293
+claude-opus-4-7,indian,98,-1.398,82,-1.573
+claude-sonnet-4-6,indian,98,-1.378,59,-1.729
+gpt-4o,indian,98,-1.418,59,-1.814
+claude-haiku-4-5-20251001,singapore,98,-1.112,75,-1.387
+claude-opus-4-7,singapore,97,-1.423,81,-1.568
+claude-sonnet-4-6,singapore,98,-1.337,59,-1.644
+gpt-4o,singapore,98,-1.561,59,-1.966

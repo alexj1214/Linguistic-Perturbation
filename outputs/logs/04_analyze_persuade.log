@@ -46,3 +46,84 @@ singapore            0.0 5.622451e-18             True       98
 23:30:11  INFO     Deltas saved to outputs/logs/persuade_deltas.csv
 23:30:11  INFO     Wilcoxon results saved to outputs/logs/persuade_wilcoxon.csv
 23:30:11  INFO     Plot saved to outputs/logs/persuade_analysis.png
+03:19:03  INFO     Loading scores for dataset: persuade
+03:19:03  INFO     Loaded 1575 scored records  |  dialects: ['indian', 'aave', 'singapore', 'sae']  |  judges: ['claude-sonnet-4-6', 'claude-opus-4-7', 'gpt-4o', 'claude-haiku-4-5-20251001']
+03:19:03  INFO     
+              judge_model   dialect  mean_score  std_score   n
+claude-haiku-4-5-20251001      aave    1.948980   0.221171  98
+claude-haiku-4-5-20251001    indian    1.918367   0.275212  98
+claude-haiku-4-5-20251001       sae    2.930000   0.639681 100
+claude-haiku-4-5-20251001 singapore    1.826531   0.380599  98
+          claude-opus-4-7      aave    2.122449   0.542338  98
+          claude-opus-4-7    indian    1.938776   0.401449  98
+          claude-opus-4-7       sae    3.320000   0.874787 100
+          claude-opus-4-7 singapore    1.907216   0.501715  97
+        claude-sonnet-4-6      aave    1.306122   0.463251  98
+        claude-sonnet-4-6    indian    1.275510   0.449068  98
+        claude-sonnet-4-6       sae    2.640000   0.611671 100
+        claude-sonnet-4-6 singapore    1.316327   0.467433  98
+                   gpt-4o      aave    1.204082   0.405101  98
+                   gpt-4o    indian    1.265306   0.443766  98
+                   gpt-4o       sae    2.670000   0.620443 100
+                   gpt-4o singapore    1.122449   0.329489  98
+03:19:03  INFO     
+Score deltas vs SAE:
+  dialect  mean_delta  std_delta  n_pairs
+     aave   -1.257653   0.665129      392
+   indian   -1.303571   0.695022      392
+singapore   -1.358056   0.679125      391
+03:19:03  INFO     
+Wilcoxon signed-rank tests:
+  dialect  wilcoxon_stat      p_value  significant_p05  n_pairs
+     aave            0.0 1.251821e-63             True      392
+   indian            0.0 4.024992e-63             True      392
+singapore            0.0 9.664098e-65             True      391
+03:19:03  INFO     Summary saved to /Users/clever2226/Downloads/LLM grading research paper/outputs/logs/persuade_analysis.csv
+03:19:03  INFO     Deltas saved to /Users/clever2226/Downloads/LLM grading research paper/outputs/logs/persuade_deltas.csv
+03:19:03  INFO     Wilcoxon results saved to /Users/clever2226/Downloads/LLM grading research paper/outputs/logs/persuade_wilcoxon.csv
+03:19:03  INFO     
+Floor-effect check (deltas pooled vs SAE-only items where SAE ≥ 3):
+              judge_model   dialect  n_all  mean_delta_all  n_sae_ge_3  mean_delta_sae_ge_3
+claude-haiku-4-5-20251001      aave     98          -0.990          75               -1.253
+          claude-opus-4-7      aave     98          -1.214          82               -1.378
+        claude-sonnet-4-6      aave     98          -1.347          59               -1.695
+                   gpt-4o      aave     98          -1.480          59               -1.831
+claude-haiku-4-5-20251001    indian     98          -1.020          75               -1.293
+          claude-opus-4-7    indian     98          -1.398          82               -1.573
+        claude-sonnet-4-6    indian     98          -1.378          59               -1.729
+                   gpt-4o    indian     98          -1.418          59               -1.814
+claude-haiku-4-5-20251001 singapore     98          -1.112          75               -1.387
+          claude-opus-4-7 singapore     97          -1.423          81               -1.568
+        claude-sonnet-4-6 singapore     98          -1.337          59               -1.644
+                   gpt-4o singapore     98          -1.561          59               -1.966
+03:19:03  INFO     Floor-effect analysis saved to /Users/clever2226/Downloads/LLM grading research paper/outputs/logs/persuade_floor_effect.csv
+03:19:03  INFO     
+Inter-rater consistency:
+  dialect                   judge_a           judge_b  n_pairs  spearman_r  weighted_kappa  pct_exact_agree  mean_abs_diff
+     aave claude-haiku-4-5-20251001   claude-opus-4-7       98      0.2230          0.0989           0.7143         0.2959
+     aave claude-haiku-4-5-20251001 claude-sonnet-4-6       98      0.1540          0.0463           0.3571         0.6429
+     aave claude-haiku-4-5-20251001            gpt-4o       98      0.1174          0.0272           0.2551         0.7449
+     aave           claude-opus-4-7 claude-sonnet-4-6       98      0.4673          0.0577           0.2449         0.8163
+     aave           claude-opus-4-7            gpt-4o       98      0.2921          0.0350           0.2041         0.9184
+     aave         claude-sonnet-4-6            gpt-4o       98      0.3229          0.3114           0.7347         0.2653
+   indian claude-haiku-4-5-20251001   claude-opus-4-7       98      0.2369          0.1893           0.8163         0.1837
+   indian claude-haiku-4-5-20251001 claude-sonnet-4-6       98      0.1839          0.0654           0.3571         0.6429
+   indian claude-haiku-4-5-20251001            gpt-4o       98      0.1792          0.0622           0.3469         0.6531
+   indian           claude-opus-4-7 claude-sonnet-4-6       98      0.3205          0.0853           0.3469         0.6633
+   indian           claude-opus-4-7            gpt-4o       98      0.3167          0.0534           0.3061         0.6939
+   indian         claude-sonnet-4-6            gpt-4o       98      0.3019          0.3018           0.7245         0.2755
+      sae claude-haiku-4-5-20251001   claude-opus-4-7      100      0.7373          0.4721           0.5700         0.4500
+      sae claude-haiku-4-5-20251001 claude-sonnet-4-6      100      0.7163          0.5392           0.6900         0.3100
+      sae claude-haiku-4-5-20251001            gpt-4o      100      0.6841          0.5266           0.6800         0.3200
+      sae           claude-opus-4-7 claude-sonnet-4-6      100      0.7789          0.2862           0.3600         0.6800
+      sae           claude-opus-4-7            gpt-4o      100      0.7072          0.2922           0.3900         0.6700
+      sae         claude-sonnet-4-6            gpt-4o      100      0.7959          0.7277           0.8300         0.1700
+singapore claude-haiku-4-5-20251001   claude-opus-4-7       97      0.1535          0.1993           0.7526         0.2784
+singapore claude-haiku-4-5-20251001 claude-sonnet-4-6       97      0.0663          0.0370           0.4021         0.5979
+singapore claude-haiku-4-5-20251001            gpt-4o       97      0.1670          0.0543           0.2887         0.7113
+singapore           claude-opus-4-7 claude-sonnet-4-6       97      0.3871          0.1521           0.4330         0.5876
+singapore           claude-opus-4-7            gpt-4o       97      0.3415          0.0495           0.2474         0.7835
+singapore         claude-sonnet-4-6            gpt-4o       97      0.3468          0.2924           0.7423         0.2577
+03:19:03  INFO     Consistency saved to /Users/clever2226/Downloads/LLM grading research paper/outputs/logs/persuade_consistency.csv
+03:19:04  INFO     Consistency heatmap saved to /Users/clever2226/Downloads/LLM grading research paper/outputs/logs/persuade_consistency.png
+03:19:04  INFO     Plot saved to /Users/clever2226/Downloads/LLM grading research paper/outputs/logs/persuade_analysis.png

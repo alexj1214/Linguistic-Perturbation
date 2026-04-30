@@ -1,0 +1,10 @@
+dialect,axis,n,mean,std,median
+aave,grammaticality,30,1.2,0.407,1.0
+aave,semantic,30,2.133,0.346,2.0
+aave,authenticity,30,2.133,0.346,2.0
+indian,grammaticality,30,1.067,0.254,1.0
+indian,semantic,30,2.033,0.183,2.0
+indian,authenticity,30,2.1,0.403,2.0
+singapore,grammaticality,29,1.241,0.435,1.0
+singapore,semantic,29,2.276,0.455,2.0
+singapore,authenticity,29,1.966,0.186,2.0

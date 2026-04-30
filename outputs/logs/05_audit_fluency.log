@@ -1,0 +1,34 @@
+03:19:08  INFO     Auditing 90 items via claude-sonnet-4-6 (8 workers)
+03:19:14  INFO       25/90 done
+03:19:18  INFO       50/90 done
+03:19:23  INFO       75/90 done
+03:19:27  INFO     
+Fluency-audit summary (claude-sonnet-4-6, dataset=chalearn):
+  dialect           axis  n  mean   std  median
+     aave grammaticality 29 1.724 0.751     2.0
+     aave       semantic 29 2.586 0.825     2.0
+     aave   authenticity 29 2.069 0.371     2.0
+   indian grammaticality 27 1.333 0.555     1.0
+   indian       semantic 27 2.222 0.424     2.0
+   indian   authenticity 27 2.111 0.424     2.0
+singapore grammaticality 27 1.333 0.555     1.0
+singapore       semantic 27 2.148 0.362     2.0
+singapore   authenticity 27 1.593 0.501     2.0
+03:19:27  INFO     Summary saved → /Users/clever2226/Downloads/LLM grading research paper/outputs/logs/chalearn_fluency_summary.csv
+03:19:48  INFO     Auditing 90 items via claude-sonnet-4-6 (8 workers)
+03:19:53  INFO       25/90 done
+03:19:58  INFO       50/90 done
+03:20:03  INFO       75/90 done
+03:20:06  INFO     
+Fluency-audit summary (claude-sonnet-4-6, dataset=persuade):
+  dialect           axis  n  mean   std  median
+     aave grammaticality 30 1.200 0.407     1.0
+     aave       semantic 30 2.133 0.346     2.0
+     aave   authenticity 30 2.133 0.346     2.0
+   indian grammaticality 30 1.067 0.254     1.0
+   indian       semantic 30 2.033 0.183     2.0
+   indian   authenticity 30 2.100 0.403     2.0
+singapore grammaticality 29 1.241 0.435     1.0
+singapore       semantic 29 2.276 0.455     2.0
+singapore   authenticity 29 1.966 0.186     2.0
+03:20:06  INFO     Summary saved → /Users/clever2226/Downloads/LLM grading research paper/outputs/logs/persuade_fluency_summary.csv

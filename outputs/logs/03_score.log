@@ -80,3 +80,346 @@
 22:29:08  INFO     [singapore] Done  →  outputs/scores/persuade_singapore_claude-sonnet-4-5.jsonl
 22:29:08  INFO     Run complete — new scores: 374, cached: 20, unparseable: 0
 22:29:08  INFO     Estimated API cost for this run: ~$0.5722 (187,000 input tokens, 748 output tokens)
+20:05:10  INFO     Dataset: chalearn  |  Dialects: ['sae', 'indian', 'aave', 'singapore']  |  Judge: claude-opus-4-7
+20:05:24  ERROR    [sae] sample='Ay7bZ7Sgx9Q.001.mp4': API call failed: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CaTJHiMCzV2aemUmXktNa'}
+02:31:27  ERROR    ANTHROPIC_API_KEY not set in environment.
+02:35:17  ERROR    ANTHROPIC_API_KEY not set in environment.
+02:36:32  INFO     Dataset: chalearn  |  Dialects: ['sae', 'indian', 'aave', 'singapore']  |  Judge: claude-opus-4-7  |  Workers: 5
+02:36:32  INFO     [sae] Submitting 5 jobs across 5 workers.
+02:36:32  ERROR    [sae] sample='fkDqn2muw-A.002.mp4': API call failed: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': '`temperature` is deprecated for this model.'}, 'request_id': 'req_011CaZVYwEq2x8xjGqf9urfJ'}
+02:36:32  ERROR    [sae] sample='GS7cBLgZKgk.002.mp4': API call failed: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': '`temperature` is deprecated for this model.'}, 'request_id': 'req_011CaZVYwK3FxoJsMUJSSE49'}
+02:36:32  ERROR    [sae] sample='OTXGM3Guxy4.004.mp4': API call failed: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': '`temperature` is deprecated for this model.'}, 'request_id': 'req_011CaZVYwKY1q3VBhte3fvDy'}
+02:36:32  ERROR    [sae] sample='Ay7bZ7Sgx9Q.001.mp4': API call failed: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': '`temperature` is deprecated for this model.'}, 'request_id': 'req_011CaZVYwLHUEoFjNkvNRQSF'}
+02:36:32  ERROR    [sae] sample='Sb1b8JMVhLs.002.mp4': API call failed: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': '`temperature` is deprecated for this model.'}, 'request_id': 'req_011CaZVYwL2rNwQTQxis2ZDS'}
+02:36:32  INFO     [sae] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_sae_claude-opus-4-7.jsonl
+02:36:32  INFO     [indian] Submitting 5 jobs across 5 workers.
+02:36:32  ERROR    [indian] sample='GS7cBLgZKgk.002.mp4': API call failed: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': '`temperature` is deprecated for this model.'}, 'request_id': 'req_011CaZVYxMYnMSsqLyK2Ed13'}
+02:36:32  ERROR    [indian] sample='OTXGM3Guxy4.004.mp4': API call failed: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': '`temperature` is deprecated for this model.'}, 'request_id': 'req_011CaZVYxUFEqihq8Bdsocrk'}
+02:36:32  ERROR    [indian] sample='Sb1b8JMVhLs.002.mp4': API call failed: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': '`temperature` is deprecated for this model.'}, 'request_id': 'req_011CaZVYxUju7jomgKwC9bbP'}
+02:36:32  ERROR    [indian] sample='fkDqn2muw-A.002.mp4': API call failed: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': '`temperature` is deprecated for this model.'}, 'request_id': 'req_011CaZVYxTzZ9ivM2VXw2rDF'}
+02:36:32  ERROR    [indian] sample='Ay7bZ7Sgx9Q.001.mp4': API call failed: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': '`temperature` is deprecated for this model.'}, 'request_id': 'req_011CaZVYxTk3sX8qs9opjxfu'}
+02:36:32  INFO     [indian] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_indian_claude-opus-4-7.jsonl
+02:36:32  INFO     [aave] Submitting 5 jobs across 5 workers.
+02:36:32  ERROR    [aave] sample='fkDqn2muw-A.002.mp4': API call failed: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': '`temperature` is deprecated for this model.'}, 'request_id': 'req_011CaZVYy4xoVngzvxRNBtSm'}
+02:36:32  ERROR    [aave] sample='OTXGM3Guxy4.004.mp4': API call failed: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': '`temperature` is deprecated for this model.'}, 'request_id': 'req_011CaZVYy5hYk4KWUGPUAgSe'}
+02:36:32  ERROR    [aave] sample='GS7cBLgZKgk.002.mp4': API call failed: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': '`temperature` is deprecated for this model.'}, 'request_id': 'req_011CaZVYy6wsSpckXiC4vFLf'}
+02:36:32  ERROR    [aave] sample='Ay7bZ7Sgx9Q.001.mp4': API call failed: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': '`temperature` is deprecated for this model.'}, 'request_id': 'req_011CaZVYy2yXdsnrkRb4h49Y'}
+02:36:33  ERROR    [aave] sample='Sb1b8JMVhLs.002.mp4': API call failed: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': '`temperature` is deprecated for this model.'}, 'request_id': 'req_011CaZVYy4DMXyPfTTvqBiUF'}
+02:36:33  INFO     [aave] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_aave_claude-opus-4-7.jsonl
+02:36:33  INFO     [singapore] Submitting 5 jobs across 5 workers.
+02:36:33  ERROR    [singapore] sample='Sb1b8JMVhLs.002.mp4': API call failed: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': '`temperature` is deprecated for this model.'}, 'request_id': 'req_011CaZVZ12HG8Sn1CPgABqpN'}
+02:36:33  ERROR    [singapore] sample='OTXGM3Guxy4.004.mp4': API call failed: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': '`temperature` is deprecated for this model.'}, 'request_id': 'req_011CaZVZ11np7ETVV2XTUtTF'}
+02:36:33  ERROR    [singapore] sample='GS7cBLgZKgk.002.mp4': API call failed: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': '`temperature` is deprecated for this model.'}, 'request_id': 'req_011CaZVZ13Gnha6jhoPGtqps'}
+02:36:33  ERROR    [singapore] sample='Ay7bZ7Sgx9Q.001.mp4': API call failed: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': '`temperature` is deprecated for this model.'}, 'request_id': 'req_011CaZVZ132jWs42iebg1rNa'}
+02:36:33  ERROR    [singapore] sample='fkDqn2muw-A.002.mp4': API call failed: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': '`temperature` is deprecated for this model.'}, 'request_id': 'req_011CaZVZ19y5aSb1arXcKFuF'}
+02:36:33  INFO     [singapore] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_singapore_claude-opus-4-7.jsonl
+02:36:33  INFO     Run complete — new scores: 0, cached: 0, unparseable: 0
+02:36:33  INFO     Tokens used — input: 0  output: 0
+02:36:33  INFO     Actual API cost for this run: ~$0.0000 (based on real token usage)
+02:36:33  INFO     Dataset: chalearn  |  Dialects: ['sae', 'indian', 'aave', 'singapore']  |  Judge: claude-sonnet-4-6  |  Workers: 5
+02:36:33  INFO     [sae] Submitting 5 jobs across 5 workers.
+02:36:34  INFO     [sae] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_sae_claude-sonnet-4-6.jsonl
+02:36:34  INFO     [indian] Submitting 5 jobs across 5 workers.
+02:36:36  INFO     [indian] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_indian_claude-sonnet-4-6.jsonl
+02:36:36  INFO     [aave] Submitting 5 jobs across 5 workers.
+02:36:37  INFO     [aave] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_aave_claude-sonnet-4-6.jsonl
+02:36:37  INFO     [singapore] Submitting 5 jobs across 5 workers.
+02:36:39  INFO     [singapore] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_singapore_claude-sonnet-4-6.jsonl
+02:36:39  INFO     Run complete — new scores: 20, cached: 0, unparseable: 0
+02:36:39  INFO     Tokens used — input: 3,632  output: 100
+02:36:39  INFO     Actual API cost for this run: ~$0.0124 (based on real token usage)
+02:36:39  INFO     Dataset: chalearn  |  Dialects: ['sae', 'indian', 'aave', 'singapore']  |  Judge: claude-haiku-4-5-20251001  |  Workers: 5
+02:36:39  INFO     [sae] Submitting 5 jobs across 5 workers.
+02:36:40  INFO     [sae] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_sae_claude-haiku-4-5-20251001.jsonl
+02:36:40  INFO     [indian] Submitting 5 jobs across 5 workers.
+02:36:41  INFO     [indian] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_indian_claude-haiku-4-5-20251001.jsonl
+02:36:41  INFO     [aave] Submitting 5 jobs across 5 workers.
+02:36:41  INFO     [aave] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_aave_claude-haiku-4-5-20251001.jsonl
+02:36:41  INFO     [singapore] Submitting 5 jobs across 5 workers.
+02:36:43  INFO     [singapore] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_singapore_claude-haiku-4-5-20251001.jsonl
+02:36:43  INFO     Run complete — new scores: 20, cached: 0, unparseable: 0
+02:36:43  INFO     Tokens used — input: 3,632  output: 100
+02:36:43  INFO     Actual API cost for this run: ~$0.0033 (based on real token usage)
+02:36:43  ERROR    openai package not installed. Run: pip install openai
+02:37:27  INFO     Dataset: chalearn  |  Dialects: ['sae', 'indian', 'aave', 'singapore']  |  Judge: claude-opus-4-7  |  Workers: 5
+02:37:27  INFO     [sae] Submitting 5 jobs across 5 workers.
+02:37:29  INFO     [sae] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_sae_claude-opus-4-7.jsonl
+02:37:29  INFO     [indian] Submitting 5 jobs across 5 workers.
+02:37:30  INFO     [indian] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_indian_claude-opus-4-7.jsonl
+02:37:30  INFO     [aave] Submitting 5 jobs across 5 workers.
+02:37:31  INFO     [aave] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_aave_claude-opus-4-7.jsonl
+02:37:31  INFO     [singapore] Submitting 5 jobs across 5 workers.
+02:37:33  ERROR    [singapore] sample='OTXGM3Guxy4.004.mp4': API call failed: list index out of range
+02:37:33  INFO     [singapore] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_singapore_claude-opus-4-7.jsonl
+02:37:33  INFO     Run complete — new scores: 19, cached: 0, unparseable: 0
+02:37:33  INFO     Tokens used — input: 4,745  output: 114
+02:37:33  INFO     Actual API cost for this run: ~$0.0797 (based on real token usage)
+02:37:33  INFO     Dataset: chalearn  |  Dialects: ['sae', 'indian', 'aave', 'singapore']  |  Judge: gpt-4o  |  Workers: 5
+02:37:33  INFO     [sae] Submitting 5 jobs across 5 workers.
+02:37:36  INFO     [sae] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_sae_gpt-4o.jsonl
+02:37:36  INFO     [indian] Submitting 5 jobs across 5 workers.
+02:37:37  INFO     [indian] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_indian_gpt-4o.jsonl
+02:37:37  INFO     [aave] Submitting 5 jobs across 5 workers.
+02:37:38  INFO     [aave] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_aave_gpt-4o.jsonl
+02:37:38  INFO     [singapore] Submitting 5 jobs across 5 workers.
+02:37:39  INFO     [singapore] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_singapore_gpt-4o.jsonl
+02:37:39  INFO     Run complete — new scores: 20, cached: 0, unparseable: 0
+02:37:39  INFO     Tokens used — input: 3,254  output: 20
+02:37:39  INFO     Actual API cost for this run: ~$0.0083 (based on real token usage)
+02:37:58  INFO     Dataset: chalearn  |  Dialects: ['singapore']  |  Judge: claude-opus-4-7  |  Workers: 1
+02:37:58  INFO     [singapore] Submitting 1 jobs across 1 workers.
+02:38:00  ERROR    [singapore] sample='OTXGM3Guxy4.004.mp4': API call failed: list index out of range
+02:38:00  INFO     [singapore] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_singapore_claude-opus-4-7.jsonl
+02:38:00  INFO     Run complete — new scores: 0, cached: 4, unparseable: 0
+02:38:00  INFO     Tokens used — input: 0  output: 0
+02:38:00  INFO     Actual API cost for this run: ~$0.0000 (based on real token usage)
+02:55:28  INFO     Dataset: chalearn  |  Dialects: ['sae', 'indian', 'aave', 'singapore']  |  Judge: claude-opus-4-7  |  Workers: 8
+02:55:28  INFO     [sae] Submitting 25 jobs across 8 workers.
+02:55:35  INFO     [sae] 25/25 done
+02:55:35  INFO     [sae] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_sae_claude-opus-4-7.jsonl
+02:55:35  INFO     [indian] Submitting 25 jobs across 8 workers.
+02:55:41  INFO     [indian] 25/25 done
+02:55:41  INFO     [indian] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_indian_claude-opus-4-7.jsonl
+02:55:41  INFO     [aave] Submitting 25 jobs across 8 workers.
+02:55:47  INFO     [aave] 25/25 done
+02:55:47  INFO     [aave] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_aave_claude-opus-4-7.jsonl
+02:55:47  INFO     [singapore] Submitting 26 jobs across 8 workers.
+02:55:49  ERROR    [singapore] sample='OTXGM3Guxy4.004.mp4': API call failed: list index out of range
+02:55:52  ERROR    [singapore] sample='OEKg-Tvwcbk.003.mp4': API call failed: list index out of range
+02:55:52  INFO     [singapore] 25/26 done
+02:55:52  INFO     [singapore] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_singapore_claude-opus-4-7.jsonl
+02:55:52  INFO     Run complete — new scores: 99, cached: 19, unparseable: 0
+02:55:52  INFO     Tokens used — input: 26,248  output: 594
+02:55:52  INFO     Actual API cost for this run: ~$0.4383 (based on real token usage)
+02:55:52  INFO     Dataset: chalearn  |  Dialects: ['sae', 'indian', 'aave', 'singapore']  |  Judge: claude-sonnet-4-6  |  Workers: 8
+02:55:52  INFO     [sae] Submitting 25 jobs across 8 workers.
+02:55:56  INFO     [sae] 25/25 done
+02:55:56  INFO     [sae] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_sae_claude-sonnet-4-6.jsonl
+02:55:56  INFO     [indian] Submitting 25 jobs across 8 workers.
+02:56:00  INFO     [indian] 25/25 done
+02:56:00  INFO     [indian] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_indian_claude-sonnet-4-6.jsonl
+02:56:00  INFO     [aave] Submitting 25 jobs across 8 workers.
+02:56:04  INFO     [aave] 25/25 done
+02:56:04  INFO     [aave] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_aave_claude-sonnet-4-6.jsonl
+02:56:04  INFO     [singapore] Submitting 25 jobs across 8 workers.
+02:56:08  INFO     [singapore] 25/25 done
+02:56:08  INFO     [singapore] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_singapore_claude-sonnet-4-6.jsonl
+02:56:08  INFO     Run complete — new scores: 100, cached: 20, unparseable: 0
+02:56:08  INFO     Tokens used — input: 19,475  output: 500
+02:56:08  INFO     Actual API cost for this run: ~$0.0659 (based on real token usage)
+02:56:08  INFO     Dataset: chalearn  |  Dialects: ['sae', 'indian', 'aave', 'singapore']  |  Judge: claude-haiku-4-5-20251001  |  Workers: 8
+02:56:08  INFO     [sae] Submitting 25 jobs across 8 workers.
+02:56:11  INFO     [sae] 25/25 done
+02:56:11  INFO     [sae] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_sae_claude-haiku-4-5-20251001.jsonl
+02:56:11  INFO     [indian] Submitting 25 jobs across 8 workers.
+02:56:13  INFO     [indian] 25/25 done
+02:56:13  INFO     [indian] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_indian_claude-haiku-4-5-20251001.jsonl
+02:56:13  INFO     [aave] Submitting 25 jobs across 8 workers.
+02:56:15  INFO     [aave] 25/25 done
+02:56:15  INFO     [aave] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_aave_claude-haiku-4-5-20251001.jsonl
+02:56:15  INFO     [singapore] Submitting 25 jobs across 8 workers.
+02:56:20  INFO     [singapore] 25/25 done
+02:56:20  INFO     [singapore] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_singapore_claude-haiku-4-5-20251001.jsonl
+02:56:20  INFO     Run complete — new scores: 100, cached: 20, unparseable: 0
+02:56:20  INFO     Tokens used — input: 19,475  output: 500
+02:56:20  INFO     Actual API cost for this run: ~$0.0176 (based on real token usage)
+02:56:20  INFO     Dataset: chalearn  |  Dialects: ['sae', 'indian', 'aave', 'singapore']  |  Judge: gpt-4o  |  Workers: 8
+02:56:20  INFO     [sae] Submitting 25 jobs across 8 workers.
+02:56:24  INFO     [sae] 25/25 done
+02:56:24  INFO     [sae] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_sae_gpt-4o.jsonl
+02:56:24  INFO     [indian] Submitting 25 jobs across 8 workers.
+02:56:26  INFO     [indian] 25/25 done
+02:56:26  INFO     [indian] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_indian_gpt-4o.jsonl
+02:56:26  INFO     [aave] Submitting 25 jobs across 8 workers.
+02:56:28  INFO     [aave] 25/25 done
+02:56:28  INFO     [aave] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_aave_gpt-4o.jsonl
+02:56:28  INFO     [singapore] Submitting 25 jobs across 8 workers.
+02:56:31  INFO     [singapore] 25/25 done
+02:56:31  INFO     [singapore] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_singapore_gpt-4o.jsonl
+02:56:31  INFO     Run complete — new scores: 100, cached: 20, unparseable: 0
+02:56:31  INFO     Tokens used — input: 17,536  output: 100
+02:56:31  INFO     Actual API cost for this run: ~$0.0448 (based on real token usage)
+03:11:43  INFO     Dataset: chalearn  |  Dialects: ['sae', 'indian', 'aave', 'singapore']  |  Judge: claude-opus-4-7  |  Workers: 8
+03:11:43  INFO     [sae] Submitting 70 jobs across 8 workers.
+03:11:48  INFO     [sae] 25/70 done
+03:11:52  INFO     [sae] 50/70 done
+03:11:57  INFO     [sae] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_sae_claude-opus-4-7.jsonl
+03:11:57  INFO     [indian] Submitting 70 jobs across 8 workers.
+03:12:02  INFO     [indian] 25/70 done
+03:12:06  INFO     [indian] 50/70 done
+03:12:09  INFO     [indian] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_indian_claude-opus-4-7.jsonl
+03:12:09  INFO     [aave] Submitting 70 jobs across 8 workers.
+03:12:13  INFO     [aave] 25/70 done
+03:12:18  INFO     [aave] 50/70 done
+03:12:22  INFO     [aave] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_aave_claude-opus-4-7.jsonl
+03:12:22  INFO     [singapore] Submitting 72 jobs across 8 workers.
+03:12:24  ERROR    [singapore] sample='OEKg-Tvwcbk.003.mp4': API call failed: list index out of range
+03:12:24  ERROR    [singapore] sample='OTXGM3Guxy4.004.mp4': API call failed: list index out of range
+03:12:26  INFO     [singapore] 25/72 done
+03:12:31  INFO     [singapore] 50/72 done
+03:12:33  ERROR    [singapore] sample='D4TU65xbF4g.000.mp4': API call failed: list index out of range
+03:12:35  INFO     [singapore] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_singapore_claude-opus-4-7.jsonl
+03:12:35  INFO     Run complete — new scores: 279, cached: 118, unparseable: 0
+03:12:35  INFO     Tokens used — input: 73,033  output: 1,674
+03:12:35  INFO     Actual API cost for this run: ~$1.2210 (based on real token usage)
+03:12:35  INFO     Dataset: chalearn  |  Dialects: ['sae', 'indian', 'aave', 'singapore']  |  Judge: claude-sonnet-4-6  |  Workers: 8
+03:12:35  INFO     [sae] Submitting 70 jobs across 8 workers.
+03:12:39  INFO     [sae] 25/70 done
+03:12:43  INFO     [sae] 50/70 done
+03:12:45  INFO     [sae] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_sae_claude-sonnet-4-6.jsonl
+03:12:45  INFO     [indian] Submitting 70 jobs across 8 workers.
+03:12:49  INFO     [indian] 25/70 done
+03:12:54  INFO     [indian] 50/70 done
+03:12:59  INFO     [indian] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_indian_claude-sonnet-4-6.jsonl
+03:12:59  INFO     [aave] Submitting 70 jobs across 8 workers.
+03:13:03  INFO     [aave] 25/70 done
+03:13:07  INFO     [aave] 50/70 done
+03:13:10  INFO     [aave] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_aave_claude-sonnet-4-6.jsonl
+03:13:10  INFO     [singapore] Submitting 70 jobs across 8 workers.
+03:13:14  INFO     [singapore] 25/70 done
+03:13:18  INFO     [singapore] 50/70 done
+03:13:21  INFO     [singapore] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_singapore_claude-sonnet-4-6.jsonl
+03:13:21  INFO     Run complete — new scores: 280, cached: 120, unparseable: 0
+03:13:21  INFO     Tokens used — input: 53,542  output: 1,400
+03:13:21  INFO     Actual API cost for this run: ~$0.1816 (based on real token usage)
+03:13:21  INFO     Dataset: chalearn  |  Dialects: ['sae', 'indian', 'aave', 'singapore']  |  Judge: claude-haiku-4-5-20251001  |  Workers: 8
+03:13:21  INFO     [sae] Submitting 70 jobs across 8 workers.
+03:13:23  INFO     [sae] 25/70 done
+03:13:26  INFO     [sae] 50/70 done
+03:13:27  INFO     [sae] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_sae_claude-haiku-4-5-20251001.jsonl
+03:13:27  INFO     [indian] Submitting 70 jobs across 8 workers.
+03:13:30  INFO     [indian] 25/70 done
+03:13:32  INFO     [indian] 50/70 done
+03:13:34  INFO     [indian] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_indian_claude-haiku-4-5-20251001.jsonl
+03:13:34  INFO     [aave] Submitting 70 jobs across 8 workers.
+03:13:36  INFO     [aave] 25/70 done
+03:13:38  INFO     [aave] 50/70 done
+03:13:40  INFO     [aave] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_aave_claude-haiku-4-5-20251001.jsonl
+03:13:40  INFO     [singapore] Submitting 70 jobs across 8 workers.
+03:13:42  INFO     [singapore] 25/70 done
+03:13:44  INFO     [singapore] 50/70 done
+03:13:46  INFO     [singapore] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_singapore_claude-haiku-4-5-20251001.jsonl
+03:13:46  INFO     Run complete — new scores: 280, cached: 120, unparseable: 0
+03:13:46  INFO     Tokens used — input: 53,542  output: 1,400
+03:13:46  INFO     Actual API cost for this run: ~$0.0484 (based on real token usage)
+03:13:46  INFO     Dataset: chalearn  |  Dialects: ['sae', 'indian', 'aave', 'singapore']  |  Judge: gpt-4o  |  Workers: 8
+03:13:46  INFO     [sae] Submitting 70 jobs across 8 workers.
+03:13:50  INFO     [sae] 25/70 done
+03:13:52  INFO     [sae] 50/70 done
+03:13:56  INFO     [sae] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_sae_gpt-4o.jsonl
+03:13:56  INFO     [indian] Submitting 70 jobs across 8 workers.
+03:13:59  INFO     [indian] 25/70 done
+03:14:01  INFO     [indian] 50/70 done
+03:14:04  INFO     [indian] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_indian_gpt-4o.jsonl
+03:14:04  INFO     [aave] Submitting 70 jobs across 8 workers.
+03:14:06  INFO     [aave] 25/70 done
+03:14:08  INFO     [aave] 50/70 done
+03:14:11  INFO     [aave] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_aave_gpt-4o.jsonl
+03:14:11  INFO     [singapore] Submitting 70 jobs across 8 workers.
+03:14:13  INFO     [singapore] 25/70 done
+03:14:15  INFO     [singapore] 50/70 done
+03:14:17  INFO     [singapore] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/chalearn_singapore_gpt-4o.jsonl
+03:14:17  INFO     Run complete — new scores: 280, cached: 120, unparseable: 0
+03:14:17  INFO     Tokens used — input: 48,031  output: 280
+03:14:17  INFO     Actual API cost for this run: ~$0.1229 (based on real token usage)
+03:14:47  INFO     Dataset: persuade  |  Dialects: ['sae', 'indian', 'aave', 'singapore']  |  Judge: claude-opus-4-7  |  Workers: 8
+03:14:47  INFO     [sae] Submitting 100 jobs across 8 workers.
+03:14:53  INFO     [sae] 25/100 done
+03:14:57  INFO     [sae] 50/100 done
+03:15:01  INFO     [sae] 75/100 done
+03:15:05  INFO     [sae] 100/100 done
+03:15:05  INFO     [sae] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/persuade_sae_claude-opus-4-7.jsonl
+03:15:05  INFO     [indian] Submitting 98 jobs across 8 workers.
+03:15:10  INFO     [indian] 25/98 done
+03:15:14  INFO     [indian] 50/98 done
+03:15:19  INFO     [indian] 75/98 done
+03:15:23  INFO     [indian] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/persuade_indian_claude-opus-4-7.jsonl
+03:15:23  INFO     [aave] Submitting 98 jobs across 8 workers.
+03:15:28  INFO     [aave] 25/98 done
+03:15:31  INFO     [aave] 50/98 done
+03:15:36  INFO     [aave] 75/98 done
+03:15:40  INFO     [aave] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/persuade_aave_claude-opus-4-7.jsonl
+03:15:40  INFO     [singapore] Submitting 98 jobs across 8 workers.
+03:15:45  INFO     [singapore] 25/98 done
+03:15:45  ERROR    [singapore] sample='AAAXMP138200001705422810_OR': API call failed: list index out of range
+03:15:48  INFO     [singapore] 50/98 done
+03:15:53  INFO     [singapore] 75/98 done
+03:15:57  INFO     [singapore] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/persuade_singapore_claude-opus-4-7.jsonl
+03:15:57  INFO     Run complete — new scores: 393, cached: 0, unparseable: 0
+03:15:57  INFO     Tokens used — input: 329,583  output: 2,358
+03:15:57  INFO     Actual API cost for this run: ~$5.1206 (based on real token usage)
+03:15:57  INFO     Dataset: persuade  |  Dialects: ['sae', 'indian', 'aave', 'singapore']  |  Judge: claude-sonnet-4-6  |  Workers: 8
+03:15:57  INFO     [sae] Submitting 100 jobs across 8 workers.
+03:16:01  INFO     [sae] 25/100 done
+03:16:05  INFO     [sae] 50/100 done
+03:16:08  INFO     [sae] 75/100 done
+03:16:12  INFO     [sae] 100/100 done
+03:16:12  INFO     [sae] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/persuade_sae_claude-sonnet-4-6.jsonl
+03:16:12  INFO     [indian] Submitting 98 jobs across 8 workers.
+03:16:16  INFO     [indian] 25/98 done
+03:16:20  INFO     [indian] 50/98 done
+03:16:24  INFO     [indian] 75/98 done
+03:16:28  INFO     [indian] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/persuade_indian_claude-sonnet-4-6.jsonl
+03:16:28  INFO     [aave] Submitting 98 jobs across 8 workers.
+03:16:32  INFO     [aave] 25/98 done
+03:16:36  INFO     [aave] 50/98 done
+03:16:40  INFO     [aave] 75/98 done
+03:16:44  INFO     [aave] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/persuade_aave_claude-sonnet-4-6.jsonl
+03:16:44  INFO     [singapore] Submitting 98 jobs across 8 workers.
+03:16:48  INFO     [singapore] 25/98 done
+03:16:51  INFO     [singapore] 50/98 done
+03:16:55  INFO     [singapore] 75/98 done
+03:16:59  INFO     [singapore] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/persuade_singapore_claude-sonnet-4-6.jsonl
+03:16:59  INFO     Run complete — new scores: 394, cached: 0, unparseable: 0
+03:16:59  INFO     Tokens used — input: 249,901  output: 1,970
+03:16:59  INFO     Actual API cost for this run: ~$0.7793 (based on real token usage)
+03:16:59  INFO     Dataset: persuade  |  Dialects: ['sae', 'indian', 'aave', 'singapore']  |  Judge: claude-haiku-4-5-20251001  |  Workers: 8
+03:16:59  INFO     [sae] Submitting 100 jobs across 8 workers.
+03:17:01  INFO     [sae] 25/100 done
+03:17:03  INFO     [sae] 50/100 done
+03:17:05  INFO     [sae] 75/100 done
+03:17:07  INFO     [sae] 100/100 done
+03:17:07  INFO     [sae] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/persuade_sae_claude-haiku-4-5-20251001.jsonl
+03:17:07  INFO     [indian] Submitting 98 jobs across 8 workers.
+03:17:10  INFO     [indian] 25/98 done
+03:17:12  INFO     [indian] 50/98 done
+03:17:14  INFO     [indian] 75/98 done
+03:17:16  INFO     [indian] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/persuade_indian_claude-haiku-4-5-20251001.jsonl
+03:17:16  INFO     [aave] Submitting 98 jobs across 8 workers.
+03:17:18  INFO     [aave] 25/98 done
+03:17:20  INFO     [aave] 50/98 done
+03:17:22  INFO     [aave] 75/98 done
+03:17:25  INFO     [aave] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/persuade_aave_claude-haiku-4-5-20251001.jsonl
+03:17:25  INFO     [singapore] Submitting 98 jobs across 8 workers.
+03:17:27  INFO     [singapore] 25/98 done
+03:17:29  INFO     [singapore] 50/98 done
+03:17:31  INFO     [singapore] 75/98 done
+03:17:34  INFO     [singapore] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/persuade_singapore_claude-haiku-4-5-20251001.jsonl
+03:17:34  INFO     Run complete — new scores: 394, cached: 0, unparseable: 0
+03:17:34  INFO     Tokens used — input: 249,901  output: 1,970
+03:17:34  INFO     Actual API cost for this run: ~$0.2078 (based on real token usage)
+03:17:34  INFO     Dataset: persuade  |  Dialects: ['sae', 'indian', 'aave', 'singapore']  |  Judge: gpt-4o  |  Workers: 8
+03:17:34  INFO     [sae] Submitting 100 jobs across 8 workers.
+03:17:37  INFO     [sae] 25/100 done
+03:17:39  INFO     [sae] 50/100 done
+03:17:41  INFO     [sae] 75/100 done
+03:17:44  INFO     [sae] 100/100 done
+03:17:44  INFO     [sae] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/persuade_sae_gpt-4o.jsonl
+03:17:44  INFO     [indian] Submitting 98 jobs across 8 workers.
+03:17:46  INFO     [indian] 25/98 done
+03:17:49  INFO     [indian] 50/98 done
+03:17:52  INFO     [indian] 75/98 done
+03:18:00  INFO     [indian] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/persuade_indian_gpt-4o.jsonl
+03:18:00  INFO     [aave] Submitting 98 jobs across 8 workers.
+03:18:03  INFO     [aave] 25/98 done
+03:18:05  INFO     [aave] 50/98 done
+03:18:08  INFO     [aave] 75/98 done
+03:18:11  INFO     [aave] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/persuade_aave_gpt-4o.jsonl
+03:18:11  INFO     [singapore] Submitting 98 jobs across 8 workers.
+03:18:14  INFO     [singapore] 25/98 done
+03:18:16  INFO     [singapore] 50/98 done
+03:18:19  INFO     [singapore] 75/98 done
+03:18:21  INFO     [singapore] Done  →  /Users/clever2226/Downloads/LLM grading research paper/outputs/scores/persuade_singapore_gpt-4o.jsonl
+03:18:21  INFO     Run complete — new scores: 394, cached: 0, unparseable: 0
+03:18:21  INFO     Tokens used — input: 231,924  output: 394
+03:18:21  INFO     Actual API cost for this run: ~$0.5837 (based on real token usage)
