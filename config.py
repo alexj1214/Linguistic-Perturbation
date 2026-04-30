@@ -32,8 +32,11 @@ N_FULL_SAMPLES  = None   # None = all available samples
 RANDOM_SEED = 42
 
 # ── Paths ─────────────────────────────────────────────────────
-DATA_DIR    = Path(".")
-OUTPUTS_DIR = Path("outputs")
+# Anchor everything to this file's directory so scripts work no matter
+# what cwd they're run from.
+_PROJECT_ROOT = Path(__file__).resolve().parent
+DATA_DIR    = _PROJECT_ROOT
+OUTPUTS_DIR = _PROJECT_ROOT / "outputs"
 
 CHALEARN_TRANSCRIPTS = DATA_DIR / "transcription_training.pkl"
 CHALEARN_ANNOTATIONS = DATA_DIR / "annotation_training.pkl"
@@ -42,4 +45,4 @@ PERSUADE_TRAIN       = DATA_DIR / "persuade_corpus_2.0_train.csv"
 TRANSFORMED_DIR = OUTPUTS_DIR / "transformed"
 SCORES_DIR      = OUTPUTS_DIR / "scores"
 LOGS_DIR        = OUTPUTS_DIR / "logs"
-PROMPTS_DIR     = Path("prompts")
+PROMPTS_DIR     = _PROJECT_ROOT / "prompts"

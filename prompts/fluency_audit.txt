@@ -1,0 +1,38 @@
+You are evaluating the quality of a dialect transformation produced by a rule-based system.
+
+The ORIGINAL is Standard American English. The TRANSFORMED text is supposed to be the same content rendered in {dialect_name}.
+
+ORIGINAL:
+{original}
+
+TRANSFORMED ({dialect_name}):
+{transformed}
+
+Rate the transformation on three independent axes, each 1–5.
+
+A) GRAMMATICALITY — Is the transformed text well-formed as an example of {dialect_name}?
+   (Not whether it matches Standard English. Whether a fluent {dialect_name} speaker would consider it coherent.)
+   1 = unintelligible or badly mangled
+   2 = many errors that obscure meaning
+   3 = readable but with awkward or unnatural phrasing
+   4 = mostly natural with minor rough edges
+   5 = fluent and natural in the target dialect
+
+B) SEMANTIC PRESERVATION — Does the transformation preserve the meaning of the original?
+   1 = meaning substantially lost or changed
+   2 = meaning partly distorted
+   3 = meaning mostly preserved, minor drift
+   4 = meaning fully preserved with negligible changes
+   5 = meaning identical
+
+C) DIALECT AUTHENTICITY — Does the transformed text exhibit recognizable features of {dialect_name}?
+   1 = no detectable dialect features (essentially still SAE)
+   2 = a few token-level features only
+   3 = some characteristic features present
+   4 = clearly recognizable as {dialect_name}
+   5 = strongly and consistently characteristic of {dialect_name}
+
+Respond in EXACTLY this format and nothing else:
+GRAMMATICALITY: <int 1-5>
+SEMANTIC: <int 1-5>
+AUTHENTICITY: <int 1-5>

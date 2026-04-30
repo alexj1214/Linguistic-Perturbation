@@ -25,6 +25,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from scipy import stats
+from sklearn.metrics import cohen_kappa_score
 
 import config
 from utils import ensure_dirs, get_logger
@@ -33,28 +34,18 @@ from utils import ensure_dirs, get_logger
 # ── Inter-rater consistency helpers ───────────────────────────
 
 def _weighted_kappa_linear(a: np.ndarray, b: np.ndarray, lo: int, hi: int) -> float:
-    """Cohen's kappa with linear weights for two arrays of ordinal scores."""
-    n = len(a)
-    if n == 0:
+    """
+    Cohen's kappa with linear weights for two arrays of ordinal scores.
+    Thin wrapper over sklearn so the label set is explicit (ensures consistent
+    weighting even if one judge never uses the extreme of the scale).
+    """
+    if len(a) == 0:
         return float("nan")
-    cats = list(range(lo, hi + 1))
-    k = len(cats)
-    idx = {v: i for i, v in enumerate(cats)}
-    weights = np.array([[abs(i - j) / (k - 1) for j in range(k)] for i in range(k)])
-
-    obs = np.zeros((k, k))
-    for ai, bi in zip(a, b):
-        if ai in idx and bi in idx:
-            obs[idx[ai], idx[bi]] += 1
-    obs /= obs.sum()
-
-    row_m = obs.sum(axis=1)
-    col_m = obs.sum(axis=0)
-    exp = np.outer(row_m, col_m)
-
-    po = 1 - np.sum(weights * obs)
-    pe = 1 - np.sum(weights * exp)
-    return po / pe if pe != 0 else float("nan")
+    labels = list(range(lo, hi + 1))
+    try:
+        return cohen_kappa_score(a, b, weights="linear", labels=labels)
+    except ValueError:
+        return float("nan")
 
 
 def compute_consistency(df: pd.DataFrame, dataset: str) -> pd.DataFrame:
@@ -198,6 +189,34 @@ def run(dataset: str):
         tests_df.to_csv(tests_path, index=False)
         log.info(f"Wilcoxon results saved to {tests_path}")
 
+    # ── Floor-effect analysis: deltas conditional on SAE score ≥ 3 ──
+    # Reviewers will ask whether the dialect penalty is just a floor effect
+    # (judges flatlining at 1 for everything). Recompute deltas restricted
+    # to items the judge rated SAE at 3 or higher — items with headroom.
+    if "sae" in pivoted.columns:
+        floor_rows = []
+        for dialect in non_sae:
+            col = pivoted[["sample_id", "judge_model", "sae", dialect]].dropna()
+            for judge, grp in col.groupby("judge_model"):
+                full = grp[dialect] - grp["sae"]
+                with_room = grp[grp["sae"] >= 3]
+                room_delta = with_room[dialect] - with_room["sae"]
+                floor_rows.append({
+                    "judge_model":           judge,
+                    "dialect":               dialect,
+                    "n_all":                 len(full),
+                    "mean_delta_all":        round(full.mean(), 3) if len(full) else None,
+                    "n_sae_ge_3":            len(with_room),
+                    "mean_delta_sae_ge_3":   round(room_delta.mean(), 3) if len(with_room) else None,
+                })
+        if floor_rows:
+            floor_df = pd.DataFrame(floor_rows)
+            log.info(f"\nFloor-effect check (deltas pooled vs SAE-only items where SAE ≥ 3):\n"
+                     f"{floor_df.to_string(index=False)}")
+            floor_path = config.LOGS_DIR / f"{dataset}_floor_effect.csv"
+            floor_df.to_csv(floor_path, index=False)
+            log.info(f"Floor-effect analysis saved to {floor_path}")
+
     # ── Inter-rater consistency ────────────────────────────────
     judges_present = df["judge_model"].unique().tolist()
     if len(judges_present) >= 2:
@@ -219,18 +238,19 @@ def run(dataset: str):
             for _, row in mean_rho.iterrows():
                 mat.loc[row["judge_a"], row["judge_b"]] = row["spearman_r"]
                 mat.loc[row["judge_b"], row["judge_a"]] = row["spearman_r"]
-            np.fill_diagonal(mat.values, 1.0)
+            mat_arr = np.asarray(mat.values, dtype=float).copy()
+            np.fill_diagonal(mat_arr, 1.0)
 
             fig_c, ax_c = plt.subplots(figsize=(max(4, len(all_judges) * 1.8),
                                                 max(3, len(all_judges) * 1.5)))
-            im = ax_c.imshow(mat.values.astype(float), vmin=-1, vmax=1, cmap="RdYlGn")
+            im = ax_c.imshow(mat_arr, vmin=-1, vmax=1, cmap="RdYlGn")
             ax_c.set_xticks(range(len(all_judges)))
             ax_c.set_yticks(range(len(all_judges)))
             ax_c.set_xticklabels(all_judges, rotation=30, ha="right", fontsize=8)
             ax_c.set_yticklabels(all_judges, fontsize=8)
             for i in range(len(all_judges)):
                 for j in range(len(all_judges)):
-                    val = mat.values[i, j]
+                    val = mat_arr[i, j]
                     if not np.isnan(val):
                         ax_c.text(j, i, f"{val:.2f}", ha="center", va="center", fontsize=9)
             plt.colorbar(im, ax=ax_c, label="Spearman ρ")

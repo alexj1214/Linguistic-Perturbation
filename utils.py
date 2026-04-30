@@ -3,6 +3,7 @@ utils.py — Shared helpers for the dialect bias pipeline.
 """
 
 import pickle
+import random
 import time
 import logging
 from pathlib import Path
@@ -13,6 +14,10 @@ from config import (
     CHALEARN_TRANSCRIPTS, CHALEARN_ANNOTATIONS, PERSUADE_TRAIN,
     TRANSFORMED_DIR, SCORES_DIR, LOGS_DIR,
 )
+
+# Status codes worth retrying. Auth (401), bad-request (400), and content-policy
+# refusals (403) are NOT retryable — they will never succeed on a retry.
+_RETRYABLE_STATUSES = {408, 409, 425, 429, 500, 502, 503, 504}
 
 
 def ensure_dirs():
@@ -90,10 +95,36 @@ def load_persuade(path=None) -> pd.DataFrame:
     return df
 
 
-def safe_api_call(fn, max_retries: int = 3, base_delay: float = 2.0):
+def _is_retryable(exc: Exception) -> bool:
     """
-    Call fn() with exponential backoff on failure.
-    Raises the last exception if all retries fail.
+    True only for transient errors worth retrying:
+    rate limits, server errors, and connection problems.
+    Auth / bad-request / content-policy errors are NOT retried.
+    """
+    # Anthropic/OpenAI SDK errors expose .status_code
+    status = getattr(exc, "status_code", None)
+    if status in _RETRYABLE_STATUSES:
+        return True
+    # Network-level: anthropic.APIConnectionError, openai.APIConnectionError,
+    # plain ConnectionError, TimeoutError, etc.
+    name = type(exc).__name__
+    if name in {
+        "APIConnectionError", "APITimeoutError",
+        "RateLimitError", "InternalServerError", "APIStatusError",
+        "ConnectionError", "TimeoutError",
+    }:
+        # APIStatusError still has a status_code; only retry if it's retryable.
+        if name == "APIStatusError" and status is not None:
+            return status in _RETRYABLE_STATUSES
+        return True
+    return False
+
+
+def safe_api_call(fn, max_retries: int = 4, base_delay: float = 1.0,
+                  max_delay: float = 30.0):
+    """
+    Call fn() with exponential backoff + jitter on transient failures.
+    Non-retryable errors (auth, bad request, content policy) raise immediately.
     """
     last_exc = None
     for attempt in range(max_retries):
@@ -101,6 +132,9 @@ def safe_api_call(fn, max_retries: int = 3, base_delay: float = 2.0):
             return fn()
         except Exception as e:
             last_exc = e
-            wait = base_delay * (2 ** attempt)
+            if not _is_retryable(e) or attempt == max_retries - 1:
+                raise
+            wait = min(base_delay * (2 ** attempt), max_delay)
+            wait *= 1 + random.random() * 0.3   # 0–30% jitter
             time.sleep(wait)
-    raise last_exc
+    raise last_exc  # unreachable, but keeps type-checkers happy

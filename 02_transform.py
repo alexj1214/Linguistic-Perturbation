@@ -85,9 +85,8 @@ def transform_one(text: str, dialect_obj) -> tuple[str, dict]:
 
     transformed_parts = []
     all_rules: dict = {}
-    rule_offset = 0  # track char offset for rule key uniqueness across sentences
 
-    for sent in sentences:
+    for i, sent in enumerate(sentences):
         dialect_obj.executed_rules = {}
         try:
             transformed_sent = dialect_obj.transform(sent)
@@ -95,11 +94,10 @@ def transform_one(text: str, dialect_obj) -> tuple[str, dict]:
             # spaCy/Stanza still disagree on this sentence — keep original
             transformed_sent = sent
         transformed_parts.append(transformed_sent)
+        # Sentence index keeps rule keys unique across sentences without
+        # any character-offset arithmetic.
         for k, v in dialect_obj.executed_rules.items():
-            # Make keys unique across sentences by adding a sentence offset tag
-            new_key = f"{rule_offset}:{k}"
-            all_rules[new_key] = v
-        rule_offset += len(sent) + 1  # +1 for the space between sentences
+            all_rules[f"s{i}:{k}"] = v
 
     transformed_text = " ".join(transformed_parts)
     return transformed_text, all_rules

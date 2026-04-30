@@ -1,2 +1,22 @@
 persuade_corpus_2.0_test.csv
 persuade_corpus_2.0_train.csv
+
+# Secrets — never commit
+.env
+.env.local
+*.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local tooling state
+.claude/
+
+# Temp run logs (kept locally, not in repo history)
+outputs/logs/_phase1_*.out
